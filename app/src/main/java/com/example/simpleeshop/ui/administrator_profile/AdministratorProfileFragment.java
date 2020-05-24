@@ -1,4 +1,4 @@
-package com.example.simpleeshop.ui.slideshow;
+package com.example.simpleeshop.ui.administrator_profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.simpleeshop.R;
 
-public class SlideshowFragment extends Fragment {
+public class AdministratorProfileFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private AdministratorProfileViewModel administratorProfileViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        administratorProfileViewModel =
+                ViewModelProviders.of(this).get(AdministratorProfileViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_administrator_profile, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        administratorProfileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

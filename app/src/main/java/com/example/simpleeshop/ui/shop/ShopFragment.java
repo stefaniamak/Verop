@@ -1,4 +1,4 @@
-package com.example.simpleeshop.ui.gallery;
+package com.example.simpleeshop.ui.shop;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,22 +14,25 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.simpleeshop.R;
 
-public class GalleryFragment extends Fragment {
+public class ShopFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private ShopViewModel shopViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        shopViewModel =
+                ViewModelProviders.of(this).get(ShopViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_shop, container, false);
+        /*
         final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        shopViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+        */
+
         return root;
     }
 }
