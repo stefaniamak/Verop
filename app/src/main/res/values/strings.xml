@@ -13,5 +13,18 @@
 
     <string name="home_second">Home Second</string>
 
-
+    <string-array name="item_test_list">
+        <item>1 maska</item>
+        <item>2 antisiptiko</item>
+        <item>3 third</item>
+        <item>4 forth</item>
+        <item>5 maska</item>
+        <item>6 antisiptiko</item>
+        <item>7 third</item>
+        <item>8 forth</item>
+        <item>9 maska</item>
+        <item>10 antisiptiko</item>
+        <item>11 third</item>
+        <item>12 forth</item>
+    </string-array>
 </resources>
