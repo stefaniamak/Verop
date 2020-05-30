@@ -1,11 +1,14 @@
 package com.example.simpleeshop;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.User;
 import com.example.simpleeshop.ui.shop.ShopListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,9 +28,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
 //        setContentView(R.layout.fragment_shop);
 
-    }
+        MyAppDatabase db = MyAppDatabase.Instance();
+
+        List<User> users = db.myDao().getUsers();
+   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
