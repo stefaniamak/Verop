@@ -17,4 +17,11 @@ public interface MyDao {
 
     @Query("SELECT * FROM users")
     public List<User> getUsers();
+
+    @Query("SELECT * FROM products")
+    public List<Products> getProducts();
+
+    @Query("SELECT name FROM products")
+    public List<String> getProductsName();
+
 }

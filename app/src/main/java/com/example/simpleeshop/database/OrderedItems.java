@@ -6,7 +6,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity (tableName = "orders",
+@Entity (tableName = "orderedItems",
+        primaryKeys = {"oid", "pid", "type"},
         foreignKeys = {
         @ForeignKey(entity = Orders.class,
                 parentColumns = "id",
@@ -23,13 +24,20 @@ import androidx.room.PrimaryKey;
 
 public class OrderedItems {
     @ColumnInfo
+    @NonNull
     private int oid;
 
     @ColumnInfo
+    @NonNull
     private int pid;
 
     @ColumnInfo
-    private int type; // Donation or Purchase
+    @NonNull
+    private String type; // Donation or Purchase
+
+    @ColumnInfo
+    @NonNull
+    private int quantity;
 
     public int getOid() {
         return oid;
@@ -47,11 +55,19 @@ public class OrderedItems {
         this.pid = pid;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

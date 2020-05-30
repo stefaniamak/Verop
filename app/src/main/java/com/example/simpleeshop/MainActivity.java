@@ -8,6 +8,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.Products;
 import com.example.simpleeshop.database.User;
 import com.example.simpleeshop.ui.shop.ShopListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         MyAppDatabase db = MyAppDatabase.Instance();
 
         List<User> users = db.myDao().getUsers();
+        List<Products> products = db.myDao().getProducts();
    }
 
     @Override

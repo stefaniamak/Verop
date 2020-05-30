@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.simpleeshop.MyApplication;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class, ProductImages.class, Products.class, Orders.class, OrderedItems.class}, version = 2)
 
 
 public abstract class MyAppDatabase extends RoomDatabase {
@@ -18,6 +18,7 @@ public abstract class MyAppDatabase extends RoomDatabase {
             _instance = Room.databaseBuilder(MyApplication.Context(), MyAppDatabase.class, "simpleshopdb")
                     .createFromAsset("simpleeshop.db")
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return _instance;

@@ -14,7 +14,7 @@ public class ProductImages {
 
     @ColumnInfo
     @NonNull
-    private String name;
+    private String image;
 
     public int getId() {
         return id;
@@ -25,11 +25,11 @@ public class ProductImages {
     }
 
     @NonNull
-    public String getName() {
-        return name;
+    public String getImage() {
+        return image;
     }
 
-    public void setName(@NonNull String name) {
-        this.name = name;
+    public void setImage(@NonNull String image) {
+        this.image = image;
     }
 }

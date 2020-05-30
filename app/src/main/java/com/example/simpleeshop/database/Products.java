@@ -11,10 +11,10 @@ import androidx.room.PrimaryKey;
         @ForeignKey(entity = ProductImages.class,
                 parentColumns = "id",
                 childColumns = "imageId",
-                onDelete = ForeignKey.CASCADE,
-                onUpdate = ForeignKey.CASCADE)
+                onUpdate = ForeignKey.CASCADE,
+                onDelete = ForeignKey.CASCADE)
 })
-
+// ON UPDATE CASCADE ON DELETE CASCADE
 public class Products {
     @PrimaryKey
     private int id;
@@ -29,7 +29,7 @@ public class Products {
 
     @ColumnInfo
     @NonNull
-    private String imageId;
+    private int imageId;
 
     public int getId() {
         return id;
@@ -57,11 +57,11 @@ public class Products {
     }
 
     @NonNull
-    public String getImageId() {
+    public int getImageId() {
         return imageId;
     }
 
-    public void setImageId(@NonNull String imageId) {
+    public void setImageId(@NonNull int imageId) {
         this.imageId = imageId;
     }
 }

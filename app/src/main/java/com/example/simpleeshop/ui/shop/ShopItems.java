@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.Products;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,18 @@ public class ShopItems extends AppCompatActivity {
     }
 
     void getShopItems() {
-        String[] items = getResources().getStringArray(R.array.item_test_list);
-        for (String item:items){
+        //String[] items = getResources().getStringArray(R.array.item_test_list);
+        MyAppDatabase db = MyAppDatabase.Instance();
+        //String[] items = db.myDao().getProducts();
+        List< String > products = db.myDao().getProductsName();
+        for (String item:products){
             Items.add(item);
         }
+        /*
+        String[] items = getResources().getStringArray(R.array.item_test_list);
+        for (String item:products){
+            Items.add(item);
+        }
+         */
     }
 }

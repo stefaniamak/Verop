@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey;
 @Entity (tableName = "orders",
         foreignKeys = {
         @ForeignKey(entity = User.class,
-        parentColumns = "id",
-        childColumns = "uid",
-        onDelete = ForeignKey.CASCADE,
-        onUpdate = ForeignKey.CASCADE)
+            parentColumns = "id",
+            childColumns = "uid",
+            onDelete = ForeignKey.CASCADE,
+            onUpdate = ForeignKey.CASCADE)
         }
 )
 

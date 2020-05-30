@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.database.MyAppDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,15 +55,21 @@ public class ShopFragment extends Fragment {
 
     private void initializeList() {
         listView = root.findViewById(R.id.shop_list_view);
-
-
         List<String> itemList = new ArrayList<>();
 
+        //String[] items = getResources().getStringArray(R.array.item_test_list);
+        MyAppDatabase db = MyAppDatabase.Instance();
+        //String[] items = db.myDao().getProducts();
+        List< String > products = db.myDao().getProductsName();
+        for (String item:products){
+            itemList.add(item);
+        }
+        /*
         String[] items = getResources().getStringArray(R.array.item_test_list);
             for (String item:items){
                 itemList.add(item);
             }
-
+        */
         adapter = new ShopListAdapter(root.getContext(), itemList);
 
         listView.setAdapter(adapter);
