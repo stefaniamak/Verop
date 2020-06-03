@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
         List<User> users = db.myDao().getUsers();
         List<Products> products = db.myDao().getProducts();
+        //List<User> orderedItems = db.myDao().getUsers();
+        //List<Products> orders = db.myDao().getProducts();
+        //List<User> productImages = db.myDao().getUsers();
    }
 
     @Override

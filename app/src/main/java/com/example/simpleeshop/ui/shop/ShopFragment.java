@@ -34,21 +34,7 @@ public class ShopFragment extends Fragment {
                 ViewModelProviders.of(this).get(ShopViewModel.class);
         root = inflater.inflate(R.layout.fragment_shop, container, false);
 
-        //        getShopItems();
-
-
-        /*
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        shopViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        */
-
         initializeList();
-
 
         return root;
     }
@@ -57,19 +43,12 @@ public class ShopFragment extends Fragment {
         listView = root.findViewById(R.id.shop_list_view);
         List<String> itemList = new ArrayList<>();
 
-        //String[] items = getResources().getStringArray(R.array.item_test_list);
         MyAppDatabase db = MyAppDatabase.Instance();
-        //String[] items = db.myDao().getProducts();
         List< String > products = db.myDao().getProductsName();
         for (String item:products){
             itemList.add(item);
         }
-        /*
-        String[] items = getResources().getStringArray(R.array.item_test_list);
-            for (String item:items){
-                itemList.add(item);
-            }
-        */
+
         adapter = new ShopListAdapter(root.getContext(), itemList);
 
         listView.setAdapter(adapter);

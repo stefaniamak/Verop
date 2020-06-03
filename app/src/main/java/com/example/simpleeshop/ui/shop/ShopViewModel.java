@@ -20,12 +20,8 @@ public class ShopViewModel extends ViewModel {
 
     public ShopViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
-
-
+        mText.setValue("This is the shop fragment");
     }
-
-
 
     public LiveData<String> getText() {
         return mText;

@@ -24,4 +24,9 @@ public interface MyDao {
     @Query("SELECT name FROM products")
     public List<String> getProductsName();
 
+    @Query("SELECT quantity FROM orderedItems WHERE type = 'purchase'")
+    public List<Integer> getTotalPurchases();
+
+    @Query("SELECT quantity FROM orderedItems WHERE type = 'donation'")
+    public List<Integer> getTotalDonations();
 }

@@ -18,6 +18,7 @@ public class ShopItems extends AppCompatActivity {
     ListAdapter adapter;
     List<String> Items = new ArrayList<>();
 
+    // Code below is pretty much useless
     public ShopItems() {
 
         getShopItems();
@@ -28,18 +29,10 @@ public class ShopItems extends AppCompatActivity {
     }
 
     void getShopItems() {
-        //String[] items = getResources().getStringArray(R.array.item_test_list);
         MyAppDatabase db = MyAppDatabase.Instance();
-        //String[] items = db.myDao().getProducts();
         List< String > products = db.myDao().getProductsName();
         for (String item:products){
             Items.add(item);
         }
-        /*
-        String[] items = getResources().getStringArray(R.array.item_test_list);
-        for (String item:products){
-            Items.add(item);
-        }
-         */
     }
 }
