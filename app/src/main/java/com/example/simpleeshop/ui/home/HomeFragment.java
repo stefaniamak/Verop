@@ -50,34 +50,6 @@ public class HomeFragment extends Fragment {
         donationsText.setText(String.valueOf(donationsNumber));
         purchasesText.setText(String.valueOf(purchasesNumber));
 
-        //initializeVariables();
-
         return root;
     }
-/*
-    private void initializeVariables() {
-        donationsList = root.findViewById(R.id.text_home_donations_number);
-        purchasesList = root.findViewById(R.id.text_home_purchases_number);
-        donationsNumber = 0;
-        purchasesNumber = 0;
-
-        MyAppDatabase db = MyAppDatabase.Instance();
-        List<Integer> purchases = db.myDao().getTotalPurchases();
-        for (int item:purchases){
-            purchasesNumber = purchasesNumber + item ;
-        }
-
-        List<Integer> donations = db.myDao().getTotalDonations();
-        for (int item:donations){
-            donationsNumber = donationsNumber + item ;
-        }
-
-        donationsList.setValue(donationsNumber);
-        purchasesList.settext
-
-        //adapter = new ShopListAdapter(root.getContext(), itemList);
-
-        //listView.setAdapter(adapter);
-    }
-*/
 }

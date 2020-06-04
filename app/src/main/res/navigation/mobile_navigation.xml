@@ -38,6 +38,16 @@
     <fragment
         android:id="@+id/nav_administrator_profile"
         android:name="com.example.simpleeshop.ui.administrator_profile.AdministratorProfileFragment"
-        android:label="Administrator Profile"
+        android:label="Account"
         tools:layout="@layout/fragment_administrator_profile" />
+    <fragment
+        android:id="@+id/nav_loginFragment"
+        android:name="com.example.simpleeshop.ui.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/nav_signupFragment"
+        android:name="com.example.simpleeshop.ui.signup.SignUpFragment"
+        android:label="SignUp"
+        tools:layout="@layout/fragment_signup" />
 </navigation>

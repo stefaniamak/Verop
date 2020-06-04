@@ -2,10 +2,13 @@ package com.example.simpleeshop;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Products;
@@ -15,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -29,6 +33,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private sharedPreferenceConfig sharedPreferenceConfig;
+    EditText UserName, UserPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +56,21 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_shop, R.id.nav_administrator_profile)
+                R.id.nav_home, R.id.nav_shop, R.id.nav_administrator_profile, R.id.nav_loginFragment, R.id.nav_signupFragment)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        //navigationView.addView(R.layout.fragment_shop);
+        //navigationView.addView(R.layout.fragment_login);
+
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                return true;
+//            }
+//        });
 
 //        setContentView(R.layout.fragment_shop);
 
@@ -70,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         //List<User> productImages = db.myDao().getUsers();
    }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -78,11 +93,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_login: {
+                Toast.makeText(this, "LogIn", Toast.LENGTH_LONG).show();
+                setContentView(R.layout.fragment_login);
+
+                //addContentView(R.layout.fragment_login);
+
+                return true;
+            }
+            case R.id.action_signup: {
+                Toast.makeText(this, "SignUp", Toast.LENGTH_LONG).show();
+                setContentView(R.layout.fragment_signup);
+                return true;
+            }
+            case R.id.action_logout: {
+                Toast.makeText(this, "Logout", Toast.LENGTH_LONG).show();
+                setContentView(R.layout.activity_main);
+                return true;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 
 }
 
