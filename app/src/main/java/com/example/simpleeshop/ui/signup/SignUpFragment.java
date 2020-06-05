@@ -37,4 +37,5 @@ public class SignUpFragment extends Fragment {
         return root;
     }
 
+
 }
