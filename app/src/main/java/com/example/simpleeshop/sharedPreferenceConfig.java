@@ -9,17 +9,18 @@ public class sharedPreferenceConfig {
 
     public sharedPreferenceConfig(Context context) {
         this.context = context;
-        sharedPreferences = context.getSharedPreferences("com.example.simpleeshop_loginPreference",Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.login_preference),Context.MODE_PRIVATE);
     }
 
     public void writeLoginStatus(boolean status){
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("com.example.simpleeshop_loginStatus", status);
+        editor.putBoolean(context.getResources().getString(R.string.login_status), status);
+        editor.commit();
     }
 
     public boolean readLoginStatus(){
         boolean status = false;
-        status = sharedPreferences.getBoolean("com.example.simpleeshop_loginStatus", false);
+        status = sharedPreferences.getBoolean( context.getResources().getString(R.string.login_status), false);
         return status;
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/start_navigation"
+    app:startDestination="@+id/nav_loginFragment"
+    tools:ignore="UnusedNavigation"
+    tools:context=".MainActivity">
+
+    <fragment
+        android:id="@+id/nav_loginFragment"
+        android:name="com.example.simpleeshop.ui.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/nav_signupFragment"
+        android:name="com.example.simpleeshop.ui.signup.SignUpFragment"
+        android:label="SignUp"
+        tools:layout="@layout/fragment_signup" />
+</navigation>

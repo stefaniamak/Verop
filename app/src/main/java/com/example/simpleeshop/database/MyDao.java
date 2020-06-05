@@ -18,6 +18,9 @@ public interface MyDao {
     @Query("SELECT * FROM users")
     public List<User> getUsers();
 
+    @Query("SELECT * FROM users WHERE username = :username AND password = :password")
+    public List<User> getUsers(String username, String password);
+
     @Query("SELECT * FROM products")
     public List<Products> getProducts();
 
@@ -29,4 +32,5 @@ public interface MyDao {
 
     @Query("SELECT quantity FROM orderedItems WHERE type = 'donation'")
     public List<Integer> getTotalDonations();
+
 }
