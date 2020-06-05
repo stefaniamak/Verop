@@ -6,20 +6,23 @@ import androidx.room.Query;
 
 import java.util.List;
 
-@Dao
+
 
 // Data Access Object
 // For Database Methods
-
+@Dao
 public interface MyDao {
     @Insert
-    public void addUser(User user);
+    public void insertUser(User user);
 
     @Query("SELECT * FROM users")
     public List<User> getUsers();
 
     @Query("SELECT * FROM users WHERE username = :username AND password = :password")
     public List<User> getUsers(String username, String password);
+
+    @Query("SELECT * FROM users WHERE username = :username")
+    public List<User> userExists(String username);
 
     @Query("SELECT * FROM products")
     public List<Products> getProducts();

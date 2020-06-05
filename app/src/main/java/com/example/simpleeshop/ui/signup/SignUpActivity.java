@@ -41,19 +41,29 @@ public class SignUpActivity extends AppCompatActivity {
         UserPassword = findViewById(R.id.password);
         String varusername = UserName.getText().toString();
         String varuserpassword = UserPassword.getText().toString();
-        
-        
-        User user = new User();
-        user.setId(4);
-        user.setUsername(varusername);
-        user.setPassword(varuserpassword);
+
 
         MyAppDatabase db = MyAppDatabase.Instance();
-        db.myDao().addUser(user);
-        //List<User> user = db.myDao().getUsers(varusername, varuserpassword);
-        Toast.makeText(this, "New account created successfully.", Toast.LENGTH_SHORT).show();
-        UserName.setText("");
-        UserPassword.setText("");
-        openLoginPage();
+        List< User > userExists = db.myDao().userExists(varusername);
+
+        if(userExists.isEmpty()){
+            User user = new User();
+            List< User > users = db.myDao().getUsers();
+            int id = users.size()+1;
+            user.setId(id);
+            user.setUsername(varusername);
+            user.setPassword(varuserpassword);
+
+            db.myDao().insertUser(user);
+
+            Toast.makeText(this, "New account created successfully.", Toast.LENGTH_SHORT).show();
+            UserName.setText("");
+            UserPassword.setText("");
+            openLoginPage();
+        } else {
+            Toast.makeText(this, "Username already exists.", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }
