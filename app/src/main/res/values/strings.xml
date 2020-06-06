@@ -16,6 +16,7 @@
     // ACCOUNT
     <string name="user_name">admin</string>
     <string name="user_password">admin</string>
+    <string name="user_id">admin</string>
     <string name="login_preference">com.example.simpleeshop_loginPreference</string>
     <string name="login_status">com.example.simpleeshop_loginStatus</string>
 

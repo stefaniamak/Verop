@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/nav_administrator_profile"
-        android:name="com.example.simpleeshop.ui.administrator_profile.AdministratorProfileFragment"
+        android:name="com.example.simpleeshop.ui.account.AccountFragment"
         android:label="Account"
         tools:layout="@layout/fragment_administrator_profile" />
 <!--    <fragment-->

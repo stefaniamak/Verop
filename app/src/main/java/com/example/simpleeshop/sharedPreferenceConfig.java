@@ -23,4 +23,16 @@ public class sharedPreferenceConfig {
         status = sharedPreferences.getBoolean( context.getResources().getString(R.string.login_status), false);
         return status;
     }
+
+    public void writeUserId(int id){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(context.getResources().getString(R.string.user_id), id);
+        editor.commit();
+    }
+
+    public int readUserId(){
+        int status = 0;
+        status = sharedPreferences.getInt( context.getResources().getString(R.string.user_id), 0);
+        return status;
+    }
 }

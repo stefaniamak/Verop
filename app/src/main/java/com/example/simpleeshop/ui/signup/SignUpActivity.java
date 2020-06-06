@@ -9,11 +9,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.simpleeshop.MainActivity;
+import com.example.simpleeshop.LoginActivity;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.User;
-import com.example.simpleeshop.sharedPreferenceConfig;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void openLoginPage(){
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 

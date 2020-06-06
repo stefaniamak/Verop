@@ -1,17 +1,8 @@
 package com.example.simpleeshop.ui.shop;
 
-import android.widget.ListAdapter;
-import android.widget.ListView;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.simpleeshop.MainActivity;
-import com.example.simpleeshop.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShopViewModel extends ViewModel {
 

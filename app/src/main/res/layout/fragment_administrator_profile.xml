@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.administrator_profile.AccountAction"
+    tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <FrameLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/profileMenuContainer">
+        android:layout_height="wrap_content">
+
+    <com.google.android.material.tabs.TabItem
+        android:text="Text"
+        android:layout_height="50dp"
+        android:layout_width="match_parent" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:id="@+id/profileMenuContainer">-->
 
 <!--        <RadioGroup-->
 <!--            android:id="@+id/radioGroupProfileMenu"-->
@@ -33,6 +55,7 @@
 <!--                android:checked="true"-->
 <!--                android:gravity="center"-->
 <!--                android:text="Proile Details"-->
+<!--                android:onClick="showDetails"-->
 <!--                android:layout_gravity="center"-->
 <!--                android:textAllCaps="false" />-->
 
@@ -40,66 +63,67 @@
 <!--                android:id="@+id/radioButton_orders"-->
 <!--                android:layout_width="207dp"-->
 <!--                android:layout_gravity="center"-->
+<!--                android:onClick="showOrders"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:text="Orders"-->
 <!--                android:textAlignment="center" />-->
 
-        </RadioGroup>
+<!--        </RadioGroup>-->
 
-    </FrameLayout>
+<!--    </FrameLayout>-->
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:id="@+id/profileViews" >
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="2"-->
+<!--        android:id="@+id/profileViews" >-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" >-->
 
-            <TextView
-                android:id="@+id/text_account_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/list_view"
-                android:layout_centerInParent="true"
-                android:gravity="top" />
+<!--            <TextView-->
+<!--                android:id="@+id/text_account_title"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="8dp"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/list_view"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:gravity="top" />-->
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Logout"
-                android:onClick="logout"
-                tools:layout_editor_absoluteX="162dp"
-                tools:layout_editor_absoluteY="628dp"
-                tools:ignore="MissingConstraints" />
+<!--            <Button-->
+<!--                android:id="@+id/button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Logout"-->
+<!--                android:onClick="logout"-->
+<!--                tools:layout_editor_absoluteX="162dp"-->
+<!--                tools:layout_editor_absoluteY="628dp"-->
+<!--                tools:ignore="MissingConstraints" />-->
 
-            <ListView
-                android:id="@+id/list_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:clipChildren="true"
-                android:mode="twoLine"
+<!--            <ListView-->
+<!--                android:id="@+id/list_view"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="true"-->
+<!--                android:clipChildren="true"-->
+<!--                android:mode="twoLine"-->
 
-                android:padding="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_account_title" />
+<!--                android:padding="20dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/text_account_title" />-->
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
 
 
-    </FrameLayout>
+<!--    </FrameLayout>-->
 
 
 

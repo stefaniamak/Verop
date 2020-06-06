@@ -18,10 +18,10 @@ public class SignUpFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        signUpViewModel =
-                ViewModelProviders.of(this).get(SignUpViewModel.class);
+//        signUpViewModel =
+//                ViewModelProviders.of(this).get(SignUpViewModel.class);
         View root = inflater.inflate(R.layout.fragment_signup, container, false);
-        final TextView textView = root.findViewById(R.id.text_account_title);
+//        final TextView textView = root.findViewById(R.id.text_account_title);
         /*
         signUpViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

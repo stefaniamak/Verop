@@ -1,14 +1,14 @@
-package com.example.simpleeshop.ui.administrator_profile;
+package com.example.simpleeshop.ui.account;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AdministratorProfileViewModel extends ViewModel {
+public class AccountViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public AdministratorProfileViewModel() {
+    public AccountViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is your profile");
     }

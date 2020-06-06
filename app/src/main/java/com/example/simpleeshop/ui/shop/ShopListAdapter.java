@@ -18,13 +18,18 @@ import java.util.List;
 
 public class ShopListAdapter extends ArrayAdapter<String> {
 
-    List<String> Items = new ArrayList<>();
+    List<String> Items = null;
     Context context;
 
     public ShopListAdapter(@NonNull Context context, List<String> Items) {
         super(context, R.layout.item_layout, Items);
         this.context = context;
         this.Items = Items;
+    }
+
+    public ShopListAdapter(@NonNull Context context) {
+        super(context, R.layout.item_layout);
+        this.context = context;
     }
 
     @NonNull
