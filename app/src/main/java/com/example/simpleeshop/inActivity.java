@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Products;
 import com.example.simpleeshop.database.User;
+import com.example.simpleeshop.ui.administrator_profile.AccountAction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -34,13 +36,27 @@ public class inActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         enterApp();
+
+
+
         sharedPreferenceConfig = new sharedPreferenceConfig(getApplicationContext());
+
+//        if(findViewById(R.id.profileMenuContainer)!=null){
+//            if(savedInstanceState!=null){
+//                return;
+//            }
+//        }
+//
+//        ProfileMenu profileMenu = new ProfileMenu();
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.profileMenuContainer, profileMenu, null);
+//        fragmentTransaction.commit();
     }
 
     public void enterApp(){
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,12 +70,18 @@ public class inActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_shop, R.id.nav_administrator_profile, R.id.nav_loginFragment, R.id.nav_signupFragment)
+                R.id.nav_home, R.id.nav_shop, R.id.nav_administrator_profile)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //startActivity(new Intent(this, AccountAction.class));
+
+        //setContentView(R.layout.fragment_administrator_profile);
+
+
 
         //navigationView.addView(R.layout.fragment_login);
 
@@ -74,8 +96,8 @@ public class inActivity extends AppCompatActivity {
 
         MyAppDatabase db = MyAppDatabase.Instance();
 
-        List<User> users = db.myDao().getUsers();
-        List<Products> products = db.myDao().getProducts();
+        //List<User> users = db.myDao().getUsers();
+        //List<Products> products = db.myDao().getProducts();
         //List<User> orderedItems = db.myDao().getUsers();
         //List<Products> orders = db.myDao().getProducts();
         //List<User> productImages = db.myDao().getUsers();

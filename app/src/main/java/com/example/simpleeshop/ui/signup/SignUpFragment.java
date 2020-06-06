@@ -7,13 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.simpleeshop.R;
-import com.example.simpleeshop.ui.administrator_profile.AdministratorProfileViewModel;
 
 public class SignUpFragment extends Fragment {
 
@@ -24,7 +21,7 @@ public class SignUpFragment extends Fragment {
         signUpViewModel =
                 ViewModelProviders.of(this).get(SignUpViewModel.class);
         View root = inflater.inflate(R.layout.fragment_signup, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
+        final TextView textView = root.findViewById(R.id.text_account_title);
         /*
         signUpViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

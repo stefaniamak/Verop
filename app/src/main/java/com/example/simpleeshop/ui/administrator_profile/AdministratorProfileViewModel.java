@@ -10,7 +10,7 @@ public class AdministratorProfileViewModel extends ViewModel {
 
     public AdministratorProfileViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is your profile");
     }
 
     public LiveData<String> getText() {
