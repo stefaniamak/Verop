@@ -71,6 +71,9 @@ public interface MyDao {
     @Query("SELECT * FROM products")
     public List<Products> getProducts();
 
+    @Query("SELECT * FROM products WHERE id = :id")
+    public Products getProduct(int id);
+
     @Query("SELECT name FROM products")
     public List<String> getProductsName();
 

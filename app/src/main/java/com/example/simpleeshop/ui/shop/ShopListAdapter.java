@@ -36,40 +36,16 @@ public class ShopListAdapter extends ArrayAdapter<Products> {
         this.mResource = resource;
     }
 
-//    public ShopListAdapter(@NonNull Context context, List<String> Items) {
-//        super(context, R.layout.item_layout, Items);
-//        this.context = context;
-//        this.Items = Items;
-//    }
-//
-//    public ShopListAdapter(@NonNull Context context) {
-//        super(context, R.layout.item_layout);
-//        this.context = context;
-//    }
-//
-//    public ShopListAdapter(ShopFragment shopFragment, int fragment_shop_item, ArrayList<Products> productsArray) {
-//        super();
-//    }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         // Get the products information
-        int productId = getItem(position).getId();
-        String name = getItem(position).getName();
-        double price = getItem(position).getPrice();
-        int imageId = getItem(position).getImageId();
-        int reserve = getItem(position).getReserve();
-        MyAppDatabase db = MyAppDatabase.Instance();
-        String imageString = db.myDao().getImagePath(productId);
 
-        // Create the product object with the information
-        Products product = new Products();
-        product.setId(productId);
-        product.setName(name);
-        product.setPrice(price);
-        product.setImageId(imageId);
-        product.setReserve(reserve);
+        Products product = getItem(position);
+
+        MyAppDatabase db = MyAppDatabase.Instance();
+        String imageString = db.myDao().getImagePath(product.getId());
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false); // This can potentially cause problems, because it loads every item.
@@ -78,28 +54,15 @@ public class ShopListAdapter extends ArrayAdapter<Products> {
         TextView prPrice = (TextView) convertView.findViewById(R.id.productPriceText);
         TextView prReserve = (TextView) convertView.findViewById(R.id.productReservedText);
         ImageView prImage = (ImageView) convertView.findViewById(R.id.productImageView);
-        // TODO: ADD IMAGE TOO
-//        String prImagePath = getURLForResource(R.drawable.ic_stay_home_color);
-//        prImage.setImageResource(R.drawable.ic_stay_home_color);
-
 
         prImage.setImageResource(getImageId(imageString));
-        prName.setText(name);
-        prPrice.setText(price + "€");
-        prReserve.setText(String.valueOf(reserve));
-
-
-//        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
-//        prImage.setImageResource(prImagePath);
+        prName.setText(product.getName());
+        prPrice.setText(product.getPrice() + "€");
+        prReserve.setText(String.valueOf(product.getReserve()));
 
 
         return  convertView;
 
-//        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-//        View row = inflater.inflate(R.layout.item_layout, parent, false);
-//        TextView ItemName = row.findViewById(R.id.shop_items);
-//        ItemName.setText(Items.get(position));
-//        return row;
     }
 
 

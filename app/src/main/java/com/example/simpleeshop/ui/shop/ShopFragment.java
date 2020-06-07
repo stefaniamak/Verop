@@ -29,8 +29,8 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
 
     private ShopViewModel shopViewModel;
     ListView listView;
-    ListAdapter adapter;
     ShopListAdapter shopListAdapter;
+    TextView selectedItem;
 
     View root;
 
@@ -38,12 +38,9 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
                              ViewGroup container, Bundle savedInstanceState) {
         shopViewModel =
                 ViewModelProviders.of(this).get(ShopViewModel.class);
+
         root = inflater.inflate(R.layout.fragment_shop, container, false);
-
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.)
-
         initializeList();
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -52,6 +49,8 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
                 Toast.makeText(parent.getContext(),
                         "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
                         Toast.LENGTH_SHORT).show();
+                // TODO : Call method to have items be added at cart table
+                addItemToCart(position);
             }
         });
 
@@ -60,26 +59,23 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
         return root;
     }
 
+    private void addItemToCart(int position){
+        Products product = shopListAdapter.getItem(position);
+        Cart.Instance().AddProduct(product.getId());
+    }
+
     private void initializeList() {
         listView = root.findViewById(R.id.shop_list_view);
-        List<String> itemList = new ArrayList<>();
         ArrayList<Products> productsArray = new ArrayList<>();
 
         MyAppDatabase db = MyAppDatabase.Instance();
-        List< String > productNames = db.myDao().getProductsName();
         List< Products > products = db.myDao().getProducts();
-
-        for (String item:productNames){
-            itemList.add(item);
-        }
 
         for (int i = 0; i < products.size(); i++){
             productsArray.add(products.get(i));
         }
 
-        //adapter = new ShopListAdapter(root.getContext(), itemList);
         shopListAdapter = new ShopListAdapter(root.getContext(), R.layout.fragment_shop_item, productsArray);
-
         listView.setAdapter(shopListAdapter);
     }
 

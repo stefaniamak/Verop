@@ -14,13 +14,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.simpleeshop.database.MyAppDatabase;
-import com.example.simpleeshop.database.Products;
-import com.example.simpleeshop.ui.cart.CartBottomSheetDialog;
+import com.example.simpleeshop.ui.shop.CartBottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferenceConfig sharedPreferenceConfig;
@@ -59,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 CartBottomSheetDialog cartBottomSheet = new CartBottomSheetDialog();
-                cartBottomSheet.show(getSupportFragmentManager(), "Cart Bottom Sheer");
+                cartBottomSheet.show(getSupportFragmentManager(), "CartFragment Bottom Sheer");
 
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 ////                        .setAction("Action", null).show();
