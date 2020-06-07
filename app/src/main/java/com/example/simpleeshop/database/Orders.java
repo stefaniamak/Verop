@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey;
 )
 
 public class Orders {
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     private int id;
 
     @ColumnInfo

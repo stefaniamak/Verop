@@ -80,17 +80,4 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
     }
 
 
-
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        Toast.makeText(getActivity(), "Item Clicked", Toast.LENGTH_SHORT).show();
-//        Toast.makeText(parent.getContext(),
-//                "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-//                Toast.LENGTH_SHORT).show();
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> parent) {
-//
-//    }
 }

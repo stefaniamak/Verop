@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey;
 })
 // ON UPDATE CASCADE ON DELETE CASCADE
 public class Products {
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     private int id;
 
     @ColumnInfo

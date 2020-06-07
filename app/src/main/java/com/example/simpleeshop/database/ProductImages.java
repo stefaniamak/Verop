@@ -11,7 +11,7 @@ import java.sql.Blob;
 @Entity (tableName = "productImages")
 
 public class ProductImages {
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     private int id;
 
     @ColumnInfo

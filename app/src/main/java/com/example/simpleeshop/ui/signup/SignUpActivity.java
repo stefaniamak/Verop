@@ -48,8 +48,6 @@ public class SignUpActivity extends AppCompatActivity {
         if(userExists.isEmpty()){
             User user = new User();
             List< User > users = db.myDao().getUsers();
-            int id = users.size()+1;
-            user.setId(id);
             user.setUsername(varusername);
             user.setPassword(varuserpassword);
 

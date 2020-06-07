@@ -101,6 +101,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     private void confirmPurchase(){
+        Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
 
     }
 
