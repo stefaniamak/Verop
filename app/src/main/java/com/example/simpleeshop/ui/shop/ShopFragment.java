@@ -46,9 +46,9 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                Toast.makeText(getActivity(), "Item Clicked", Toast.LENGTH_SHORT).show();
-                Toast.makeText(parent.getContext(),
-                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(parent.getContext(),
+//                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
+//                        Toast.LENGTH_SHORT).show();
                 // TODO : Call method to have items be added at cart table
                 addItemToCart(position);
             }

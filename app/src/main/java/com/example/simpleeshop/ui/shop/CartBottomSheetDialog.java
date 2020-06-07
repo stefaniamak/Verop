@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,6 +35,9 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
     ListView listView;
     ShopListAdapter cartListAdapter;
     Products product;
+    TextView cartEmpty, totalCostTextView;
+    Button clear, confirm;
+    double totalCost;
 
     //TextView clickedProduct;
 
@@ -45,34 +49,77 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_cart, container, false);
 
-//        View convertView;
-//        cartTable = (TableLayout) convertView.findViewById(R.id.cartTable);
+        cartEmpty = root.findViewById(R.id.cartEmpty);
+        clear = root.findViewById(R.id.clear);
+        confirm = root.findViewById(R.id.confirm);
+        totalCostTextView = root.findViewById(R.id.totalCost);
+
 
         initializeCartTable();
+        layoutVisibility();
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearCart();
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmPurchase();
+            }
+        });
 
         return root;
     }
 
-    public void addNewItemToTable(Products product){
-
+    private void layoutVisibility(){
+        Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
+        if(!totalProducts.isEmpty()){
+            cartEmpty.setVisibility(View.GONE);
+            clear.setVisibility(View.VISIBLE);
+            confirm.setVisibility(View.VISIBLE);
+            totalCostTextView.setVisibility(View.VISIBLE);
+            totalCostTextView.setText("Total: " + totalCost + "€");
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initializeCartTable(){
         Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
         MyAppDatabase db = MyAppDatabase.Instance();
-
+        totalCost = 0;
 
         for(int id : totalProducts.keySet()) {
             product = db.myDao().getProduct(id);
             addRow(product.getName(), product.getPrice(), totalProducts.get(id));
+            totalCost += totalProducts.get(id) * product.getPrice();
         }
 
     }
 
+    private void confirmPurchase(){
 
+    }
 
-    public void addRow(String product, double price, int count) {
+    private void clearCart(){
+        // Remove all table rows except the first one
+        int childCount = cartTable.getChildCount();
+        if (childCount > 1) {
+            cartTable.removeViews(1, childCount - 1);
+        }
+        Cart.Instance().ClearProducts();
+
+        // Layout visibility reverse
+        cartEmpty.setVisibility(View.VISIBLE);
+        clear.setVisibility(View.GONE);
+        confirm.setVisibility(View.GONE);
+        totalCostTextView.setVisibility(View.GONE);
+    }
+
+    private void addRow(String product, double price, int count) {
         cartTable = root.findViewById(R.id.cartTable);
         Context context = MyApplication.Context();
 
