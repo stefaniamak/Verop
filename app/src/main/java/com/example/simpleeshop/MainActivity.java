@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Products;
+import com.example.simpleeshop.ui.cart.CartBottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -56,8 +57,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                CartBottomSheetDialog cartBottomSheet = new CartBottomSheetDialog();
+                cartBottomSheet.show(getSupportFragmentManager(), "Cart Bottom Sheer");
+
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         //startActivity(new Intent(this, AccountAction.class));
 
-        //setContentView(R.layout.fragment_administrator_profile);
+        //setContentView(R.layout.fragment_account);
 
 
 

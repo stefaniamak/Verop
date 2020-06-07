@@ -39,7 +39,7 @@
         android:id="@+id/nav_administrator_profile"
         android:name="com.example.simpleeshop.ui.account.AccountFragment"
         android:label="Account"
-        tools:layout="@layout/fragment_administrator_profile" />
+        tools:layout="@layout/fragment_account" />
 <!--    <fragment-->
 <!--        android:id="@+id/nav_loginFragment"-->
 <!--        android:name="com.example.simpleeshop.ui.login.LoginFragment"-->

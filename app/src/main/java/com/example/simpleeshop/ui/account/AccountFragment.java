@@ -33,7 +33,7 @@ public class AccountFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 //        accountViewModel =
 //                ViewModelProviders.of(this).get(AccountViewModel.class);
-        root = inflater.inflate(R.layout.fragment_administrator_profile, container, false);
+        root = inflater.inflate(R.layout.fragment_account, container, false);
 //        final TextView textView = root.findViewById(R.id.text_account_title);
 //        accountViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
 //            @Override
