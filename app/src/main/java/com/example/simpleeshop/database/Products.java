@@ -31,6 +31,10 @@ public class Products {
     @NonNull
     private int imageId;
 
+    @ColumnInfo
+    @NonNull
+    private int reserve;
+
     public int getId() {
         return id;
     }
@@ -48,6 +52,10 @@ public class Products {
         this.name = name;
     }
 
+    public int getReserve() {
+        return reserve;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -63,5 +71,9 @@ public class Products {
 
     public void setImageId(@NonNull int imageId) {
         this.imageId = imageId;
+    }
+
+    public void setReserve(int reserve) {
+        this.reserve = reserve;
     }
 }

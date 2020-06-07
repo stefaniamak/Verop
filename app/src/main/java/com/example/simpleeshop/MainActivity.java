@@ -14,9 +14,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.Products;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferenceConfig sharedPreferenceConfig;
@@ -93,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
         //List<User> orderedItems = db.myDao().getUsers();
         //List<Products> orders = db.myDao().getProducts();
         //List<User> productImages = db.myDao().getUsers();
+
+
+
     }
 
     @Override

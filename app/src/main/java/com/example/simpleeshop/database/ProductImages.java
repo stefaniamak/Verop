@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.sql.Blob;
+
 
 @Entity (tableName = "productImages")
 
@@ -14,7 +16,11 @@ public class ProductImages {
 
     @ColumnInfo
     @NonNull
-    private String image;
+    private String title;
+
+    @ColumnInfo
+    @NonNull
+    private String path;
 
     public int getId() {
         return id;
@@ -25,11 +31,20 @@ public class ProductImages {
     }
 
     @NonNull
-    public String getImage() {
-        return image;
+    public String getTitle() {
+        return title;
     }
 
-    public void setImage(@NonNull String image) {
-        this.image = image;
+    public void setTitle(@NonNull String title) {
+        this.title = title;
+    }
+
+    @NonNull
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(@NonNull String path) {
+        this.path = path;
     }
 }

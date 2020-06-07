@@ -14,31 +14,57 @@
 <!--        android:textSize="24dp"-->
 <!--        android:text="User Profile" />-->
 
-    <RadioGroup
-        android:id="@+id/radioGroupProfileMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_alignBottom="@+id/divider"
-        android:layout_marginBottom="18dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/radioButton_profile_details"
-            android:layout_width="201dp"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:gravity="center"
-            android:text="Proile Details"
-            android:layout_gravity="center"
-            android:textAllCaps="false" />
+<!--    <TableLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" >-->
 
-    </RadioGroup>
+<!--        <ListView-->
+<!--            android:id="@+id/shop_list_view"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="90dp"-->
+<!--            android:clickable="true"-->
+<!--            android:clipChildren="true"-->
+<!--            android:mode="twoLine"-->
+<!--            android:padding="20dp" />-->
 
+<!--        </TableRow>-->
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" >-->
 
+<!--            <ListView-->
+<!--                android:id="@+id/shop_list_view"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:clickable="true"-->
+<!--                android:clipChildren="true"-->
+<!--                android:mode="twoLine"-->
+<!--                 />-->
 
+<!--        </TableRow>-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" >-->
+
+<!--            <ListView-->
+<!--                android:id="@+id/shop_list_view"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:clickable="true"-->
+<!--                android:clipChildren="true"-->
+<!--                android:mode="twoLine"-->
+<!--                android:padding="20dp" />-->
+
+<!--        </TableRow>-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_paren t" />-->
+<!--    </TableLayout>-->
 </FrameLayout>

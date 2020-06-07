@@ -60,12 +60,13 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="50dp"
 
-
+        android:background="#FFFFFF"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/divider"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="184dp">
+
 
         <ListView
             android:id="@+id/shop_list_view"
@@ -73,8 +74,10 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:clipChildren="true"
-            android:padding="20dp"
-            android:mode="twoLine"/>
+            android:mode="twoLine"
+            
+            android:orientation="horizontal"
+            android:padding="20dp" />
 
 
     </LinearLayout>
