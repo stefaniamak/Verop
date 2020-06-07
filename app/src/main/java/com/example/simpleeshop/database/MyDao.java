@@ -74,6 +74,9 @@ public interface MyDao {
     @Query("SELECT name FROM products")
     public List<String> getProductsName();
 
+    @Query("SELECT pi.path FROM productImages pi JOIN products pr ON pi.id = pr.imageId WHERE pr.id = :prId")
+    public String getImagePath(int prId);
+
     @Query("SELECT quantity FROM orderedItems WHERE type = 'purchase'")
     public List<Integer> getTotalPurchases();
 

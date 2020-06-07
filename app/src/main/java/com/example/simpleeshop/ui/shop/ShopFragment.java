@@ -83,6 +83,8 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
         listView.setAdapter(shopListAdapter);
     }
 
+
+
 //    @Override
 //    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //        Toast.makeText(getActivity(), "Item Clicked", Toast.LENGTH_SHORT).show();

@@ -29,4 +29,9 @@ public class MyApplication extends Application {
         return sharedPreferenceConfig;
     }
 
+    public static int getImageId(String imagePath) {
+        return Context().getResources().getIdentifier(imagePath, null, Context().getPackageName());
+    }
+
+
 }

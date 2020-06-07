@@ -15,10 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Products;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.simpleeshop.MyApplication.getImageId;
 
 public class ShopListAdapter extends ArrayAdapter<Products> {
 
@@ -75,9 +78,12 @@ public class ShopListAdapter extends ArrayAdapter<Products> {
         ImageView prImage = (ImageView) convertView.findViewById(R.id.productImageView);
         // TODO: ADD IMAGE TOO
 //        String prImagePath = getURLForResource(R.drawable.ic_stay_home_color);
-        prImage.setImageResource(R.drawable.ic_stay_home_color);
+//        prImage.setImageResource(R.drawable.ic_stay_home_color);
 
+        MyAppDatabase db = MyAppDatabase.Instance();
+        String imageString = db.myDao().getImagePath(imageId);
 
+        prImage.setImageResource(getImageId(imageString));
         prName.setText(name);
         prPrice.setText(price + "€");
         prReserve.setText("Items left: " + reserve);
@@ -96,8 +102,5 @@ public class ShopListAdapter extends ArrayAdapter<Products> {
 //        return row;
     }
 
-    public String getURLForResource (int resourceId) {
-        //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are not same
-        return Uri.parse("android.resource://"+R.class.getPackage().getName()+"/" +resourceId).toString();
-    }
+
 }
