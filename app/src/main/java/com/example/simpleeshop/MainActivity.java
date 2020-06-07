@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
-    private sharedPreferenceConfig sharedPreferenceConfig;
+    private SharedPreferenceConfig sharedPreferenceConfig;
     private AppBarConfiguration mAppBarConfiguration;
 
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        sharedPreferenceConfig = new sharedPreferenceConfig(getApplicationContext());
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
 //        if(findViewById(R.id.profileMenuContainer)!=null){
 //            if(savedInstanceState!=null){

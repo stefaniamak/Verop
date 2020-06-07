@@ -6,6 +6,9 @@ import android.content.Context;
 public class MyApplication extends Application {
     private static MyApplication _instance = null;
 
+    private SharedPreferenceConfig sharedPreferenceConfig;
+
+
     public static MyApplication Instance() {
         return _instance;
     }
@@ -17,8 +20,13 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         _instance = this;
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+
         super.onCreate();
-
-
     }
+
+    public SharedPreferenceConfig getSharedPreferenceConfig() {
+        return sharedPreferenceConfig;
+    }
+
 }

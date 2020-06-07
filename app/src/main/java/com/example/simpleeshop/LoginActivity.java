@@ -15,7 +15,6 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private sharedPreferenceConfig sharedPreferenceConfig;
     EditText UserName, UserPassword;
 
 
@@ -26,11 +25,10 @@ public class LoginActivity extends AppCompatActivity {
         
         setContentView(R.layout.fragment_login);
 
-        sharedPreferenceConfig = new sharedPreferenceConfig(getApplicationContext());
         UserName = findViewById(R.id.username);
         UserPassword = findViewById(R.id.password);
 
-        if (sharedPreferenceConfig.readLoginStatus()){
+        if (MyApplication.Instance().getSharedPreferenceConfig().readLoginStatus()){
             getIntoTheApp();
         }
 
@@ -47,15 +45,18 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    public void  loginUser(View view) {
+    public void loginUser(View view) {
         String varusername = UserName.getText().toString();
         String varuserpassword = UserPassword.getText().toString();
 
         MyAppDatabase db = MyAppDatabase.Instance();
         List< User > user = db.myDao().getUsers(varusername, varuserpassword);
 
+        SharedPreferenceConfig config = MyApplication.Instance().getSharedPreferenceConfig();
         if(!user.isEmpty()){
-            sharedPreferenceConfig.writeLoginStatus(true);
+            config.writeLoginStatus(true);
+            int userId =  user.get(0).getId();
+            config.writeUserId(userId);
             getIntoTheApp();
         } else {
             Toast.makeText(this, "Login failed. Incorrect combination.", Toast.LENGTH_SHORT).show();

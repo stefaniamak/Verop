@@ -3,11 +3,11 @@ package com.example.simpleeshop;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class sharedPreferenceConfig {
+public class SharedPreferenceConfig {
     SharedPreferences sharedPreferences;
     Context context;
 
-    public sharedPreferenceConfig(Context context) {
+    public SharedPreferenceConfig(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.login_preference),Context.MODE_PRIVATE);
     }

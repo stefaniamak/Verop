@@ -61,7 +61,6 @@
 
         android:layout_marginRight="44dp"
         android:layout_marginBottom="352dp"
-        android:onClick="deleteUser"
         android:text="Delete account"
         app:layout_constraintBottom_toTopOf="@+id/logoutButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +75,6 @@
         android:layout_marginTop="89dp"
         android:layout_marginBottom="352dp"
 
-        android:onClick="updateUser"
         android:text="Update details"
         app:layout_constraintBottom_toTopOf="@+id/logoutButton"
         app:layout_constraintEnd_toStartOf="@+id/deleteButton"
