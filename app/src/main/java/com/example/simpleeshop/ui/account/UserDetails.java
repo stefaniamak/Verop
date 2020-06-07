@@ -17,11 +17,15 @@ import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.SharedPreferenceConfig;
+import com.example.simpleeshop.database.User;
+
+import java.util.List;
 
 public class UserDetails extends Fragment implements View.OnClickListener {
 
     private SharedPreferenceConfig sharedPreferenceConfig;
-    EditText UserName, UserPassword;
+    EditText userName, userPassword;
+    String userNameString, userPasswordString;
     int userId;
     Button logoutButton, updateButton, deleteButton;
 
@@ -34,6 +38,9 @@ public class UserDetails extends Fragment implements View.OnClickListener {
         logoutButton = root.findViewById(R.id.logoutButton);
         updateButton = root.findViewById(R.id.updateButton);
         deleteButton = root.findViewById(R.id.deleteButton);
+        userName = root.findViewById(R.id.username);
+        userPassword = root.findViewById(R.id.password);
+
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,24 +58,39 @@ public class UserDetails extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-//        UserName = findViewById(R.id.username);
-//        UserPassword = findViewById(R.id.password);
+
 
         SharedPreferenceConfig config = MyApplication.Instance().getSharedPreferenceConfig();
         userId = config.readUserId();
         MyAppDatabase db = MyAppDatabase.Instance();
+        List< User > users = db.myDao().getUsersById(userId);
+        User user = new User();
+        user.setId(userId);
+
 
         switch (v.getId()){
             case R.id.updateButton:
-                // todo: update
+                userNameString = userName.getText().toString();
+                userPasswordString = userPassword.getText().toString();
+
+                if(userNameString.equals("")){
+                    user.setUsername(users.get(0).getUsername());
+                } else{
+                    user.setUsername(userNameString);
+                }
+                if(userPasswordString.equals("")){
+                    user.setPassword(users.get(0).getPassword());
+                } else {
+                    user.setPassword(userPasswordString);
+                }
+
+                db.myDao().updateUser(user);
                 Toast.makeText(getActivity(), "Details updated", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.deleteButton:
-//                User user = new User();
-//                user.setId(userId);
-//                db.myDao().deleteUser(user);
+                db.myDao().deleteUser(user);
                 Toast.makeText(getActivity(), "Account deleted", Toast.LENGTH_SHORT).show();
-//                ((MainActivity)getActivity()).logout();
+                ((MainActivity)getActivity()).logout();
                 break;
         }
     }
