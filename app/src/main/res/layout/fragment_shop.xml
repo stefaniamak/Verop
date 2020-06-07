@@ -7,50 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".ui.shop.ShopFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/guideline"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintGuide_percent="0.25" />-->
 
-    <RadioGroup
-        android:id="@+id/radioGroupForShop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/divider"
-        android:layout_marginBottom="18dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <RadioGroup-->
+<!--        android:id="@+id/radioGroupForShop"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignBottom="@+id/divider"-->
+<!--        android:layout_marginBottom="18dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintBottom_toTopOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-        <RadioButton
-            android:id="@+id/radioButton_donate"
-            android:layout_width="201dp"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="DONATE"
-            android:textAlignment="center"
-            android:textAllCaps="false" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/radioButton_donate"-->
+<!--            android:layout_width="201dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:checked="true"-->
+<!--            android:text="DONATE"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textAllCaps="false" />-->
 
-        <RadioButton
-            android:id="@+id/radioButton_buy"
-            android:layout_width="207dp"
-            android:layout_height="wrap_content"
-            android:text="BUY"
-            android:textAlignment="center" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/radioButton_buy"-->
+<!--            android:layout_width="207dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="BUY"-->
+<!--            android:textAlignment="center" />-->
 
-    </RadioGroup>
+<!--    </RadioGroup>-->
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="?android:attr/listDivider"
-        />
-
+<!--    <View-->
+<!--        android:id="@+id/divider"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="?android:attr/listDivider"-->
+<!--        />-->
+    <!-- app:layout_constraintTop_toBottomOf="@+id/divider" -->
 
     <LinearLayout
         android:id="@+id/Layout_list_container"
@@ -58,11 +58,11 @@
 
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="0dp"
 
         android:background="#FFFFFF"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
+
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="184dp">

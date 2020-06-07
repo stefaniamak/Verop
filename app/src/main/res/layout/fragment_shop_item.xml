@@ -44,12 +44,26 @@
     </LinearLayout>
 
 
-
-    <TextView
-        android:id="@+id/productReservedText"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Left" />
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/productReserved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Items left: " />
+
+        <TextView
+            android:id="@+id/productReservedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="number" />
+
+
+     </LinearLayout>
 
 </LinearLayout>

@@ -60,6 +60,8 @@ public class ShopListAdapter extends ArrayAdapter<Products> {
         double price = getItem(position).getPrice();
         int imageId = getItem(position).getImageId();
         int reserve = getItem(position).getReserve();
+        MyAppDatabase db = MyAppDatabase.Instance();
+        String imageString = db.myDao().getImagePath(productId);
 
         // Create the product object with the information
         Products product = new Products();
@@ -80,13 +82,11 @@ public class ShopListAdapter extends ArrayAdapter<Products> {
 //        String prImagePath = getURLForResource(R.drawable.ic_stay_home_color);
 //        prImage.setImageResource(R.drawable.ic_stay_home_color);
 
-        MyAppDatabase db = MyAppDatabase.Instance();
-        String imageString = db.myDao().getImagePath(imageId);
 
         prImage.setImageResource(getImageId(imageString));
         prName.setText(name);
         prPrice.setText(price + "€");
-        prReserve.setText("Items left: " + reserve);
+        prReserve.setText(String.valueOf(reserve));
 
 
 //        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
