@@ -70,7 +70,7 @@ public class AccountFragment extends Fragment {
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         switch(position) {
                             case 0:
-                                tab.setText("Details");
+                                tab.setText("DetailsMap");
                                 break;
                             case 1:
                                 tab.setText("Orders");
@@ -90,7 +90,7 @@ public class AccountFragment extends Fragment {
 //            @Override
 //            public void onClick(View v) {
 //                // ToDo: Code for ON CLICK
-////                textView.setText("Details radio button");
+////                textView.setText("DetailsMap radio button");
 //            }
 //        });
 //

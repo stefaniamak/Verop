@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,10 +25,7 @@ import com.example.simpleeshop.database.Orders;
 import com.example.simpleeshop.database.Products;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.function.BiConsumer;
 
 public class CartBottomSheetDialog extends BottomSheetDialogFragment {
 
@@ -76,7 +72,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     private void layoutVisibility(){
-        Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
+        Hashtable<Integer,Integer> totalProducts = CartMap.Instance().TotalProducts();
         if(!totalProducts.isEmpty()){
             cartEmpty.setVisibility(View.GONE);
             clear.setVisibility(View.VISIBLE);
@@ -88,7 +84,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
 
 
     private void initializeCartTable(){
-        Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
+        Hashtable<Integer,Integer> totalProducts = CartMap.Instance().TotalProducts();
         MyAppDatabase db = MyAppDatabase.Instance();
         totalCost = 0;
 
@@ -100,7 +96,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     private void confirmPurchase(){
-        Hashtable<Integer,Integer> totalProductsOrdered = Cart.Instance().TotalProducts();
+        Hashtable<Integer,Integer> totalProductsOrdered = CartMap.Instance().TotalProducts();
 
         // Insert User's Order to Database
         Orders order = new Orders();
@@ -130,7 +126,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         if (childCount > 1) {
             cartTable.removeViews(1, childCount - 1);
         }
-        Cart.Instance().ClearProducts();
+        CartMap.Instance().ClearProducts();
 
         // Layout visibility reverse
         cartEmpty.setVisibility(View.VISIBLE);

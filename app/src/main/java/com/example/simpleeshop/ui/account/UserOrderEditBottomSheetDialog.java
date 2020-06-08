@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -21,10 +19,8 @@ import androidx.annotation.Nullable;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
-import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
 import com.example.simpleeshop.database.Products;
-import com.example.simpleeshop.ui.shop.Cart;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Hashtable;
@@ -78,7 +74,7 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     private void layoutVisibility(){
-        totalProductsOrdered = Cart.Instance().TotalProducts();
+        totalProductsOrdered = DetailsMap.Instance().TotalProducts();
         if(!totalProductsOrdered.isEmpty()){
             totalCostTextView.setVisibility(View.VISIBLE);
             totalCostTextView.setText("Total: " + totalCost + "€");
@@ -97,11 +93,11 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
         if (childCount > 1) {
             orderTable.removeViews(1, childCount - 1);
         }
-        Cart.Instance().ClearProducts();
+        DetailsMap.Instance().ClearProducts();
     }
 
     private void initializeCartTable(){
-        totalProductsOrdered = Cart.Instance().TotalProducts();
+        totalProductsOrdered = DetailsMap.Instance().TotalProducts();
         MyAppDatabase db = MyAppDatabase.Instance();
         totalCost = 0;
 
@@ -113,7 +109,7 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
 //    private void updateOrder(){
-//        totalProductsOrdered = Cart.Instance().TotalProducts();
+//        totalProductsOrdered = DetailsMap.Instance().TotalProducts();
 //        MyAppDatabase db = MyAppDatabase.Instance();
 //
 //        // Update OrderedItems table

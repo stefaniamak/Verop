@@ -85,7 +85,7 @@ public class UserDetails extends Fragment implements View.OnClickListener {
                 }
 
                 db.myDao().updateUser(user);
-                Toast.makeText(getActivity(), "Details updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "DetailsMap updated", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.deleteButton:
                 db.myDao().deleteUser(user);

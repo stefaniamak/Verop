@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,11 +21,7 @@ import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
-import com.example.simpleeshop.database.Products;
-import com.example.simpleeshop.ui.shop.Cart;
-import com.example.simpleeshop.ui.shop.ShopListAdapter;
 
-import java.util.Hashtable;
 import java.util.List;
 
 public class UserOrders extends Fragment {
@@ -125,7 +119,7 @@ public class UserOrders extends Fragment {
         MyAppDatabase db = MyAppDatabase.Instance();
         List<OrderedItems> orderedProducts = db.myDao().getOrderedProductsIds(orderId);
         for(OrderedItems product : orderedProducts){
-            Cart.Instance().ShowOrderedProducts(product.getPid(), product.getQuantity());
+            DetailsMap.Instance().ShowOrderedProducts(product.getPid(), product.getQuantity());
         }
     }
 

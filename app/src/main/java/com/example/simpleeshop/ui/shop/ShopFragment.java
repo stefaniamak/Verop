@@ -5,19 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.simpleeshop.MainActivity;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Products;
@@ -61,7 +55,7 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
 
     private void addItemToCart(int position){
         Products product = shopListAdapter.getItem(position);
-        Cart.Instance().AddProduct(product.getId());
+        CartMap.Instance().AddProduct(product.getId());
     }
 
     private void initializeList() {

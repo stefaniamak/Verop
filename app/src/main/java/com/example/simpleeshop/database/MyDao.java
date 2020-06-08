@@ -54,6 +54,8 @@ public interface MyDao {
 
         // Queries
 
+            // Users
+
     @Query("SELECT * FROM users")
     public List<User> getUsers();
 
@@ -66,17 +68,24 @@ public interface MyDao {
     @Query("SELECT * FROM users WHERE username = :username")
     public List<User> userExists(String username);
 
+            // Products
+
     @Query("SELECT * FROM products")
     public List<Products> getProducts();
 
     @Query("SELECT * FROM products WHERE id = :id")
     public Products getProduct(int id);
 
+    @Query("SELECT reserve FROM products WHERE id = :id")
+    public Integer getProductReserve(int id);
+
     @Query("SELECT name FROM products")
     public List<String> getProductsName();
 
     @Query("SELECT pi.path FROM productImages pi JOIN products pr ON pi.id = pr.imageId WHERE pr.id = :prId")
     public String getImagePath(int prId);
+
+            // Orders and OrderItems
 
     @Query("SELECT * FROM orders WHERE uid = :userId")
     public List<Orders> getUserOrders(int userId);
