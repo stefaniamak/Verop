@@ -13,15 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.UiRefresher;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Products;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSelectedListener
+public class ShopFragment extends Fragment implements UiRefresher.RefreshListener { // implements AdapterView.OnItemSelectedListener
 
-    private static ShopFragment instance;
     private ShopViewModel shopViewModel;
     ListView listView;
     ShopListAdapter shopListAdapter;
@@ -37,8 +37,6 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
         root = inflater.inflate(R.layout.fragment_shop, container, false);
         initializeList();
 
-        instance = this;
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -53,14 +51,12 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
 
 //        listView.setOnItemClickListener(this);
 
+        UiRefresher.Instance().addListener(this);
         return root;
     }
 
-    public static ShopFragment getInstance() {
-        return instance;
-    }
-
-    public void refresh() {
+    @Override
+    public void refreshUi() {
         clear();
         initializeList();
     }
@@ -88,6 +84,7 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
         shopListAdapter = new ShopListAdapter(root.getContext(), R.layout.fragment_shop_item, productsArray);
         listView.setAdapter(shopListAdapter);
     }
+
 
 
 }

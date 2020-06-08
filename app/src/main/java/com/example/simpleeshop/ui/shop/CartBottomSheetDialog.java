@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.UiRefresher;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
@@ -124,7 +125,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Update interface
-        ShopFragment.getInstance().refresh();
+        UiRefresher.Instance().refreshUis();
         clearCart();
         Toast.makeText(getActivity(), "Order send!", Toast.LENGTH_SHORT).show();
 
@@ -143,6 +144,9 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         clear.setVisibility(View.GONE);
         confirm.setVisibility(View.GONE);
         totalCostTextView.setVisibility(View.GONE);
+
+        // Close Sheet
+        this.dismiss();
     }
 
     private void addRow(String product, double price, int count) {
