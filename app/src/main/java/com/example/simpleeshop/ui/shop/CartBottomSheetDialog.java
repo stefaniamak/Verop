@@ -124,6 +124,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Update interface
+        ShopFragment.getInstance().refresh();
         clearCart();
         Toast.makeText(getActivity(), "Order send!", Toast.LENGTH_SHORT).show();
 

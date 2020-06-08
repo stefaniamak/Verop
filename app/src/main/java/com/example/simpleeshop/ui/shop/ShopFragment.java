@@ -21,6 +21,7 @@ import java.util.List;
 
 public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSelectedListener
 
+    private static ShopFragment instance;
     private ShopViewModel shopViewModel;
     ListView listView;
     ShopListAdapter shopListAdapter;
@@ -35,6 +36,8 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
 
         root = inflater.inflate(R.layout.fragment_shop, container, false);
         initializeList();
+
+        instance = this;
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,6 +54,19 @@ public class ShopFragment extends Fragment  { // implements AdapterView.OnItemSe
 //        listView.setOnItemClickListener(this);
 
         return root;
+    }
+
+    public static ShopFragment getInstance() {
+        return instance;
+    }
+
+    public void refresh() {
+        clear();
+        initializeList();
+    }
+
+    private void clear(){
+        listView.setAdapter(null);
     }
 
     private void addItemToCart(int position){
