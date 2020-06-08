@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
@@ -36,6 +37,7 @@ public class ProductsList extends Fragment {
     TableLayout productsListTable;
     View root;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,8 +84,8 @@ public class ProductsList extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void addRow(String imagePath, String name, double price, int reserve, int sales) {
-        Context context = MyApplication.Context();
+    private void addRow(String imagePath, final String name, double price, int reserve, int sales) {
+        final Context context = MyApplication.Context();
 
         TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -141,6 +143,13 @@ public class ProductsList extends Fragment {
         reserveText.setText(Integer.toString(reserve));
         salesTest.setText(Integer.toString(sales));
         editButton.setText(">");
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Product: " + name, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         productListTableRow.addView(imagePathText);
         productListTableRow.addView(nameText);

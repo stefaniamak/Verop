@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.simpleeshop.MainActivity;
 import com.example.simpleeshop.MyApplication;
@@ -104,15 +105,15 @@ public class OrdersList extends Fragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 0.25f));
 
-//        final UserOrders that = this;
-//        editOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
+//        final OrdersList that = this;
+        editOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
 //                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(that, orderId);
 //                addItems(orderId);
-//            }
-//        });
+            }
+        });
 
         orderTableRow.addView(editOrder);
 

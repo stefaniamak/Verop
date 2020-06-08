@@ -71,9 +71,6 @@ tools:context=".ui.administrator.ProductsList">
 
         </TableRow>
 
-
-
-
     </TableLayout>
 </ScrollView>
 </FrameLayout>
