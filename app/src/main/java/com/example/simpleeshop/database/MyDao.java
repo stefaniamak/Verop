@@ -94,6 +94,9 @@ public interface MyDao {
 
             // Orders and OrderItems
 
+    @Query("SELECT * FROM orders")
+    public List<Orders> getOrders();
+
     @Query("SELECT * FROM orders WHERE uid = :userId")
     public List<Orders> getUserOrders(int userId);
 

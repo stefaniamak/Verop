@@ -1,14 +1,29 @@
 package com.example.simpleeshop.ui.administrator;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.example.simpleeshop.MainActivity;
+import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.Orders;
+import com.example.simpleeshop.ui.account.UserOrders;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,51 +31,92 @@ import com.example.simpleeshop.R;
  * create an instance of this fragment.
  */
 public class OrdersList extends Fragment {
+    TableLayout ordersListTable;
+    View root;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public OrdersList() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OrdersList.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrdersList newInstance(String param1, String param2) {
-        OrdersList fragment = new OrdersList();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_user_orders, container, false);
+        ordersListTable = root.findViewById(R.id.userOrdersTable);
+
+        initializeOrdersTable();
+
+        return root;
+    }
+
+    private void initializeOrdersTable(){
+        MyAppDatabase db = MyAppDatabase.Instance();
+
+        List<Orders> ordersList = db.myDao().getOrders();
+        for(Orders order : ordersList) {
+            addRow(order.getId(), order.getId() + "/6/2020");
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_orders_list, container, false);
+    public void resetOrdersTable() {
+        clearUserOrdersTable();
+        initializeOrdersTable();
+    }
+
+    private void clearUserOrdersTable(){
+        // Remove all table rows except the first one
+        int childCount = ordersListTable.getChildCount();
+        if (childCount > 1) {
+            ordersListTable.removeViews(1, childCount - 1);
+        }
+    }
+
+    private void addRow(final int orderId, String date) {
+        final Context context = MyApplication.Context();
+
+        TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        TableRow orderTableRow = new TableRow(context);
+        orderTableRow.setLayoutParams(rowParams);
+        orderTableRow.setGravity(Gravity.CENTER);
+
+        TextView orderIdText = new TextView(context);
+        orderIdText.setGravity(Gravity.CENTER);
+        orderIdText.setLayoutParams(new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                0.5f));
+        orderIdText.setText(Integer.toString(orderId));
+        orderTableRow.addView(orderIdText);
+
+        TextView orderDateText = new TextView(context);
+        orderDateText.setGravity(Gravity.CENTER);
+        orderDateText.setLayoutParams(new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                1f));
+        orderDateText.setText(date);
+        orderTableRow.addView(orderDateText);
+
+
+        Button editOrder = new Button(context);
+        editOrder.setText("DETAILS");
+        editOrder.setLayoutParams(new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                0.25f));
+
+//        final UserOrders that = this;
+//        editOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
+//                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(that, orderId);
+//                addItems(orderId);
+//            }
+//        });
+
+        orderTableRow.addView(editOrder);
+
+        ordersListTable.addView(orderTableRow);
+//        listView.setAdapter(cartListAdapter);
     }
 }
