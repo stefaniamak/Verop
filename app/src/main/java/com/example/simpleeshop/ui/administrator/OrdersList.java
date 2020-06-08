@@ -26,11 +26,7 @@ import com.example.simpleeshop.ui.account.UserOrders;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OrdersList#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class OrdersList extends Fragment {
     TableLayout ordersListTable;
     View root;
@@ -109,8 +105,8 @@ public class OrdersList extends Fragment {
         editOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
-//                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(that, orderId);
+//                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).openOrderListSheetDialog();
 //                addItems(orderId);
             }
         });

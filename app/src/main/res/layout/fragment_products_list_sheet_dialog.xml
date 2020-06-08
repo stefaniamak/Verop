@@ -8,44 +8,37 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/spinnerImage"
-        android:layout_width="43dp"
-        android:layout_height="34dp"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_stay_home"
-        tools:ignore="MissingConstraints,VectorDrawableCompat">
 
-    </ImageView>
-
-    <Spinner
-        android:id="@+id/imageSpinner"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="13dp"
-        app:layout_constraintStart_toEndOf="@+id/spinnerImage"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-    </Spinner>
 
     <TableLayout
         android:id="@+id/orderTable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerImage"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="27dp">
+        <ImageView
+            android:id="@+id/spinnerImage"
+            android:layout_width="43dp"
+            android:layout_height="34dp"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_stay_home"
+            tools:ignore="MissingConstraints,VectorDrawableCompat">
+        </ImageView>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:stretchColumns="1"
             app:layout_constraintTop_toBottomOf="@+id/products_list_table">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Image" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,12 +61,94 @@
                 android:gravity="center"
                 android:text="Reserve" />
 
-            <TextView
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/products_list_table">
+
+            <Spinner
+                android:id="@+id/imageSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="13dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints">
+
+            </Spinner>
+
+
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Sold" />
+                android:hint="name"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/productNameListText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Price" />
+
+                <Button
+                    android:id="@+id/increasePriceButton"
+                    android:layout_width="30dp"
+                    android:layout_height="35dp"
+                    android:text="+">
+
+                </Button>
+                <Button
+                    android:id="@+id/decreasePriceButton"
+                    android:layout_width="30dp"
+                    android:layout_height="35dp"
+                    android:text="-">
+
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/productPriceListText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Reserve" />
+
+                <Button
+                    android:id="@+id/increaseReserveButton"
+                    android:layout_width="30dp"
+                    android:layout_height="35dp"
+                    android:text="+">
+
+                </Button>
+                <Button
+                    android:id="@+id/decreaseReserveButton"
+                    android:layout_width="30dp"
+                    android:layout_height="35dp"
+                    android:text="-">
+
+                </Button>
+            </LinearLayout>
+
+
+
 
         </TableRow>
     </TableLayout>

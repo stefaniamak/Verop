@@ -20,6 +20,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.simpleeshop.MainActivity;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
@@ -147,7 +148,8 @@ public class ProductsList extends Fragment {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Product: " + name, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Product: " + name, Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).openProductsListSheetDialog();
             }
         });
 
