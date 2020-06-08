@@ -61,6 +61,12 @@ public class ShopFragment extends Fragment implements UiRefresher.RefreshListene
         initializeList();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        UiRefresher.Instance().removeListener(this);
+    }
+
     private void clear(){
         listView.setAdapter(null);
     }

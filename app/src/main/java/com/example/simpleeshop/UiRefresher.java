@@ -30,4 +30,8 @@ public class UiRefresher {
     public void addListener(RefreshListener listener) {
         listeners.add(listener);
     }
+
+    public void removeListener(RefreshListener listener) {
+        listeners.remove(listener);
+    }
 }
