@@ -24,7 +24,7 @@ public interface MyDao {
     public void insertProduct(Products products);
 
     @Insert
-    public void insertOrder(Orders orders);
+    public long insertOrder(Orders orders);
 
     @Insert
     public void insertOrderedItems(OrderedItems orderedItems);
@@ -79,6 +79,9 @@ public interface MyDao {
 
     @Query("SELECT pi.path FROM productImages pi JOIN products pr ON pi.id = pr.imageId WHERE pr.id = :prId")
     public String getImagePath(int prId);
+
+    @Query("SELECT * FROM orders WHERE uid = :id")
+    public List<Orders> getUserOrders(int id);
 
     @Query("SELECT quantity FROM orderedItems WHERE type = 'purchase'")
     public List<Integer> getTotalPurchases();

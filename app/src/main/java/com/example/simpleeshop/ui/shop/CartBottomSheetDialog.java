@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,8 @@ import androidx.annotation.RequiresApi;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.OrderedItems;
+import com.example.simpleeshop.database.Orders;
 import com.example.simpleeshop.database.Products;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -32,9 +35,6 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
 
     TableLayout cartTable;
     View root;
-    ListView listView;
-    ShopListAdapter cartListAdapter;
-    Products product;
     TextView cartEmpty, totalCostTextView;
     Button clear, confirm;
     double totalCost;
@@ -48,6 +48,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_cart, container, false);
+        cartTable = root.findViewById(R.id.cartTable);
 
         cartEmpty = root.findViewById(R.id.cartEmpty);
         clear = root.findViewById(R.id.clear);
@@ -86,22 +87,40 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     private void initializeCartTable(){
         Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
         MyAppDatabase db = MyAppDatabase.Instance();
         totalCost = 0;
 
         for(int id : totalProducts.keySet()) {
-            product = db.myDao().getProduct(id);
+            Products product = db.myDao().getProduct(id);
             addRow(product.getName(), product.getPrice(), totalProducts.get(id));
             totalCost += totalProducts.get(id) * product.getPrice();
         }
-
     }
 
     private void confirmPurchase(){
-        Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
+        Hashtable<Integer,Integer> totalProductsOrdered = Cart.Instance().TotalProducts();
+
+        // Insert User's Order to Database
+        Orders order = new Orders();
+        order.setUid(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
+        MyAppDatabase db = MyAppDatabase.Instance();
+        long orderId = db.myDao().insertOrder(order);
+
+        // Insert Ordered Items to Database
+        OrderedItems orderedItems = new OrderedItems();
+        orderedItems.setOid((int) orderId);
+        orderedItems.setType("purchase");
+
+        for(int id : totalProductsOrdered.keySet()){
+            orderedItems.setPid(id);
+            orderedItems.setQuantity(totalProductsOrdered.get(id));
+            db.myDao().insertOrderedItems(orderedItems);
+        }
+
+        Toast.makeText(getActivity(), "Order send!", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -121,7 +140,6 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     private void addRow(String product, double price, int count) {
-        cartTable = root.findViewById(R.id.cartTable);
         Context context = MyApplication.Context();
 
         TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(
