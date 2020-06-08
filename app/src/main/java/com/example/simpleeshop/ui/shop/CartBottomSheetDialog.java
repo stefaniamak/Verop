@@ -104,17 +104,26 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         MyAppDatabase db = MyAppDatabase.Instance();
         long orderId = db.myDao().insertOrder(order);
 
-        // Insert Ordered Items to Database
+        // Insert Ordered Items to Database  &  Update products reserved
         OrderedItems orderedItems = new OrderedItems();
         orderedItems.setOid((int) orderId);
         orderedItems.setType("purchase");
 
         for(int id : totalProductsOrdered.keySet()){
+            // Updates OrderedItems
             orderedItems.setPid(id);
-            orderedItems.setQuantity(totalProductsOrdered.get(id));
+            int productQuantity = totalProductsOrdered.get(id);
+            orderedItems.setQuantity(productQuantity);
             db.myDao().insertOrderedItems(orderedItems);
+
+            // Updates Products
+            Products product;
+            int originalReserve = db.myDao().getProductReserve(id);
+            db.myDao().updateProductReserve(id, originalReserve - productQuantity);
+
         }
 
+        // Update interface
         clearCart();
         Toast.makeText(getActivity(), "Order send!", Toast.LENGTH_SHORT).show();
 

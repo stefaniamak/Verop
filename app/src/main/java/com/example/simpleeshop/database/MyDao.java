@@ -48,9 +48,13 @@ public interface MyDao {
     @Update
     public void updateProduct(Products products);
 
-
     @Update
     public void updateOrderedItems(OrderedItems orderedItems);
+
+            // Query Updates
+
+    @Query("UPDATE products SET reserve = :reserve WHERE id = :id")
+    public void updateProductReserve(int id, int reserve);
 
         // Queries
 
