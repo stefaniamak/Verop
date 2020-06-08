@@ -1,66 +1,155 @@
 package com.example.simpleeshop.ui.administrator;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.OrderedItems;
+import com.example.simpleeshop.database.Orders;
+import com.example.simpleeshop.database.Products;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductsList#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+import static com.example.simpleeshop.MyApplication.getImageId;
+
+
 public class ProductsList extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    TableLayout productsListTable;
+    View root;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProductsList() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProductsList.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProductsList newInstance(String param1, String param2) {
-        ProductsList fragment = new ProductsList();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        root = inflater.inflate(R.layout.fragment_products_list, container, false);
+        productsListTable = root.findViewById(R.id.products_list_table);
+
+        initializeProductsListTable();
+
+        return root;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void initializeProductsListTable(){
+        MyAppDatabase db = MyAppDatabase.Instance();
+
+        // todo call getProductsSales
+
+        List<Products> productsList = db.myDao().getProducts();
+
+
+        for(Products product : productsList) {
+            String imagePath = db.myDao().getImagePath(product.getId());
+            List<Integer> orderedItemQuantityListList = db.myDao().getProductSales(product.getId());
+            int soldItems = 0;
+            for(Integer i : orderedItemQuantityListList) {
+                soldItems += i;
+            }
+            addRow(imagePath, product.getName(), product.getPrice(), product.getReserve(), soldItems);
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_products_list, container, false);
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void resetOrdersTable() {
+        clearUserOrdersTable();
+        initializeProductsListTable();
+    }
+
+    private void clearUserOrdersTable(){
+        // Remove all table rows except the first one
+        int childCount = productsListTable.getChildCount();
+        if (childCount > 1) {
+            productsListTable.removeViews(1, childCount - 1);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void addRow(String imagePath, String name, double price, int reserve, int sales) {
+        Context context = MyApplication.Context();
+
+        TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        TableRow.LayoutParams textParams = new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                1f);
+
+        TableRow.LayoutParams buttonParams = new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                0.5f);
+
+        TableRow.LayoutParams imgParams = new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                1f);
+
+        buttonParams.width = 80;
+
+        imgParams.width = 100;
+        imgParams.height = 100;
+
+        TableRow productListTableRow = new TableRow(context);
+        productListTableRow.setLayoutParams(rowParams);
+
+        productListTableRow.setGravity(Gravity.CENTER);
+
+        ImageView imagePathText = new ImageView(context);
+        TextView nameText  = new TextView(context);
+        TextView priceText = new TextView(context);
+        TextView reserveText = new TextView(context);
+        TextView salesTest = new TextView(context);
+        Button editButton = new Button(context);
+
+        imagePathText.setForegroundGravity(Gravity.CENTER);
+        nameText.setGravity(Gravity.CENTER);
+        priceText.setGravity(Gravity.CENTER);
+        reserveText.setGravity(Gravity.CENTER);
+        salesTest.setGravity(Gravity.CENTER);
+        editButton.setGravity(Gravity.CENTER);
+
+        imagePathText.setLayoutParams(imgParams);
+        nameText.setLayoutParams(textParams);
+        priceText.setLayoutParams(textParams);
+        reserveText.setLayoutParams(textParams);
+        salesTest.setLayoutParams(textParams);
+        editButton.setLayoutParams(buttonParams);
+
+        imagePathText.setImageResource(getImageId(imagePath));
+        nameText.setText(name);
+        priceText.setText(price + "€");
+        reserveText.setText(Integer.toString(reserve));
+        salesTest.setText(Integer.toString(sales));
+        editButton.setText(">");
+
+        productListTableRow.addView(imagePathText);
+        productListTableRow.addView(nameText);
+        productListTableRow.addView(priceText);
+        productListTableRow.addView(reserveText);
+        productListTableRow.addView(salesTest);
+        productListTableRow.addView(editButton);
+
+        productsListTable.addView(productListTableRow);
+//        listView.setAdapter(cartListAdapter);
     }
 }
