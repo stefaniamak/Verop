@@ -19,11 +19,13 @@ import androidx.annotation.Nullable;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
 import com.example.simpleeshop.database.Products;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Hashtable;
+import java.util.List;
 
 public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
 
@@ -145,6 +147,24 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
     private void deleteOrder(){
 
         MyAppDatabase db = MyAppDatabase.Instance();
+
+        // Updates Product Reserve
+        OrderedItems orderedItems = new OrderedItems();
+        List<OrderedItems> orderedItemsList = db.myDao().getOrderedProductsIds(orderId);
+
+        for(OrderedItems orderedItem : orderedItemsList){
+            // Gets Ordered quantity
+            int productQuantity = orderedItem.getQuantity();
+
+            // Updates Products
+            Products product;
+            int originalReserve = db.myDao().getProductReserve(orderedItem.getPid());
+            db.myDao().updateProductReserve(orderedItem.getPid(), originalReserve + productQuantity);
+
+        }
+
+
+        // Deletes order
         Orders order = new Orders();
         order.setId(orderId);
         db.myDao().deleteOrder(order);
