@@ -21,6 +21,7 @@ import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Orders;
+import com.example.simpleeshop.database.User;
 import com.example.simpleeshop.ui.account.UserOrders;
 
 import java.util.List;
@@ -33,7 +34,8 @@ public class UsersList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_user_orders, container, false);
+        root = inflater.inflate(R.layout.fragment_users_list, container, false);
+
         usersListTable = root.findViewById(R.id.users_list_table);
 
         initializeUsersListTable();
@@ -44,9 +46,9 @@ public class UsersList extends Fragment {
     private void initializeUsersListTable(){
         MyAppDatabase db = MyAppDatabase.Instance();
 
-        List<Orders> usersList = db.myDao().getUserOrders(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
-        for(Orders order : usersList) {
-            addRow(order.getId(), "random date");
+        List< User > usersList = db.myDao().getUsers();
+        for(User user : usersList) {
+            addRow(user.getId(), user.getUsername());
         }
     }
 
@@ -63,56 +65,39 @@ public class UsersList extends Fragment {
         }
     }
 
-    private void addRow(final int orderId, String date) {
-        final Context context = MyApplication.Context();
+    private void addRow(int orderId, String username) {
+        Context context = MyApplication.Context();
 
         TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        TableRow orderTableRow = new TableRow(context);
-        orderTableRow.setLayoutParams(rowParams);
-        orderTableRow.setGravity(Gravity.CENTER);
-
-        TextView orderIdText = new TextView(context);
-        orderIdText.setGravity(Gravity.CENTER);
-        orderIdText.setLayoutParams(new TableRow.LayoutParams(
+        TableRow.LayoutParams textParams = new TableRow.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
-                0.5f));
-        orderIdText.setText(Integer.toString(orderId));
-        orderTableRow.addView(orderIdText);
+                1f);
 
-        TextView orderDateText = new TextView(context);
-        orderDateText.setGravity(Gravity.CENTER);
-        orderDateText.setLayoutParams(new TableRow.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                1f));
-        orderDateText.setText(date);
-        orderTableRow.addView(orderDateText);
+        TableRow userListTableRow = new TableRow(context);
+        userListTableRow.setLayoutParams(rowParams);
 
+        userListTableRow.setGravity(Gravity.CENTER);
 
-        Button editOrder = new Button(context);
-        editOrder.setText("DETAILS");
-        editOrder.setLayoutParams(new TableRow.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                0.25f));
+        TextView userIdListItem = new TextView(context);
+        TextView usernameListItem  = new TextView(context);
 
-//        final UserOrders that = this;
-//        editOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
-//                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(that, orderId);
-//                addItems(orderId);
-//            }
-//        });
+        userIdListItem.setGravity(Gravity.CENTER);
+        usernameListItem.setGravity(Gravity.CENTER);
 
-//        orderTableRow.addView(editOrder);
-//
-//        usersListTable.addView(orderTableRow);
-////        listView.setAdapter(cartListAdapter);
+        userIdListItem.setLayoutParams(textParams);
+        usernameListItem.setLayoutParams(textParams);
+
+        userIdListItem.setText(Integer.toString(orderId));
+        usernameListItem.setText(username);
+
+        userListTableRow.addView(userIdListItem);
+        userListTableRow.addView(usernameListItem);
+
+        usersListTable.addView(userListTableRow);
+
     }
 }
