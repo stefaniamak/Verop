@@ -11,10 +11,15 @@
         <item
             android:id="@+id/nav_shop"
             android:icon="@drawable/ic_credit_cards"
-            android:title="Buy / Donate" />
+            android:title="Shop" />
         <item
-            android:id="@+id/nav_administrator_profile"
-            android:icon="@drawable/ic_tuxedo"
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_boy_mouth_mask"
             android:title="Account" />
+
+        <item
+            android:id="@+id/nav_administrator"
+            android:icon="@drawable/ic_tuxedo"
+            android:title="Administrator" />
     </group>
 </menu>

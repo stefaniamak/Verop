@@ -1,7 +1,12 @@
-package com.example.simpleeshop.ui.account;
+package com.example.simpleeshop.ui.administrator;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,54 +16,50 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.example.simpleeshop.MainActivity;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
-import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
+import com.example.simpleeshop.ui.account.UserOrders;
 
 import java.util.List;
 
-public class UserOrders extends Fragment {
+public class UsersList extends Fragment {
 
-    TableLayout ordersTable;
+    TableLayout usersListTable;
     View root;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_user_orders, container, false);
-        ordersTable = root.findViewById(R.id.userOrdersTable);
+        usersListTable = root.findViewById(R.id.users_list_table);
 
-        initializeOrdersTable();
+        initializeUsersListTable();
 
         return root;
     }
 
-    private void initializeOrdersTable(){
+    private void initializeUsersListTable(){
         MyAppDatabase db = MyAppDatabase.Instance();
 
-        List<Orders> ordersList = db.myDao().getUserOrders(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
-        for(Orders order : ordersList) {
+        List<Orders> usersList = db.myDao().getUserOrders(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
+        for(Orders order : usersList) {
             addRow(order.getId(), "random date");
         }
     }
 
     public void resetOrdersTable() {
         clearUserOrdersTable();
-        initializeOrdersTable();
+        initializeUsersListTable();
     }
 
     private void clearUserOrdersTable(){
         // Remove all table rows except the first one
-        int childCount = ordersTable.getChildCount();
+        int childCount = usersListTable.getChildCount();
         if (childCount > 1) {
-            ordersTable.removeViews(1, childCount - 1);
+            usersListTable.removeViews(1, childCount - 1);
         }
     }
 
@@ -99,28 +100,19 @@ public class UserOrders extends Fragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 0.25f));
 
-        final UserOrders that = this;
-        editOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
-                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(that, orderId);
-                addItems(orderId);
-            }
-        });
+//        final UserOrders that = this;
+//        editOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
+//                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(that, orderId);
+//                addItems(orderId);
+//            }
+//        });
 
-        orderTableRow.addView(editOrder);
-
-        ordersTable.addView(orderTableRow);
-//        listView.setAdapter(cartListAdapter);
+//        orderTableRow.addView(editOrder);
+//
+//        usersListTable.addView(orderTableRow);
+////        listView.setAdapter(cartListAdapter);
     }
-
-    private void addItems(int orderId){
-        MyAppDatabase db = MyAppDatabase.Instance();
-        List<OrderedItems> orderedProducts = db.myDao().getOrderedProductsIds(orderId);
-        for(OrderedItems product : orderedProducts){
-            DetailsMap.Instance().ShowOrderedProducts(product.getPid(), product.getQuantity());
-        }
-    }
-
 }

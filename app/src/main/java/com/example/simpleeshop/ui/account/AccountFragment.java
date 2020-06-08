@@ -70,7 +70,7 @@ public class AccountFragment extends Fragment {
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         switch(position) {
                             case 0:
-                                tab.setText("DetailsMap");
+                                tab.setText("Details");
                                 break;
                             case 1:
                                 tab.setText("Orders");

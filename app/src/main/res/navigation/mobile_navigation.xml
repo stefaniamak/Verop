@@ -36,18 +36,19 @@
         tools:layout="@layout/fragment_shop" />
 
     <fragment
-        android:id="@+id/nav_administrator_profile"
+        android:id="@+id/nav_account"
         android:name="com.example.simpleeshop.ui.account.AccountFragment"
         android:label="Account"
         tools:layout="@layout/fragment_account" />
-<!--    <fragment-->
-<!--        android:id="@+id/nav_loginFragment"-->
-<!--        android:name="com.example.simpleeshop.ui.login.LoginFragment"-->
-<!--        android:label="Login"-->
-<!--        tools:layout="@layout/fragment_login" />-->
+    <fragment
+        android:id="@+id/nav_administrator"
+        android:name="com.example.simpleeshop.ui.administrator.AdministratorProfile"
+        android:label="Administrator"
+        tools:layout="@layout/fragment_login" />
 <!--    <fragment-->
 <!--        android:id="@+id/nav_signupFragment"-->
 <!--        android:name="com.example.simpleeshop.ui.signup.SignUpFragment"-->
 <!--        android:label="SignUp"-->
 <!--        tools:layout="@layout/fragment_signup" />-->
+
 </navigation>

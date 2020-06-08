@@ -31,19 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         enterApp();
 
-
-
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
-//        if(findViewById(R.id.profileMenuContainer)!=null){
-//            if(savedInstanceState!=null){
-//                return;
-//            }
-//        }
-//
-//        ProfileMenu profileMenu = new ProfileMenu();
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.profileMenuContainer, profileMenu, null);
-//        fragmentTransaction.commit();
     }
 
     public void enterApp(){
@@ -68,38 +57,14 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_shop, R.id.nav_administrator_profile)
+                R.id.nav_home, R.id.nav_shop, R.id.nav_account, R.id.nav_administrator)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        //startActivity(new Intent(this, AccountAction.class));
-
-        //setContentView(R.layout.fragment_account);
-
-
-
-        //navigationView.addView(R.layout.fragment_login);
-
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                return true;
-//            }
-//        });
-
-//        setContentView(R.layout.fragment_shop);
-
         MyAppDatabase db = MyAppDatabase.Instance();
-
-        //List<User> users = db.myDao().getUsers();
-        //List<Products> products = db.myDao().getProducts();
-        //List<User> orderedItems = db.myDao().getUsers();
-        //List<Products> orders = db.myDao().getProducts();
-        //List<User> productImages = db.myDao().getUsers();
-
 
 
     }
