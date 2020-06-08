@@ -40,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
+        android:paddingTop="5dp"
         android:paddingBottom="20dp"
         android:paddingRight="30dp"
         android:text="Total"

@@ -47,12 +47,24 @@ public class UserOrders extends Fragment {
     }
 
     private void initializeOrdersTable(){
-
         MyAppDatabase db = MyAppDatabase.Instance();
 
         List<Orders> ordersList = db.myDao().getUserOrders(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
         for(Orders order : ordersList) {
             addRow(order.getId(), "random date");
+        }
+    }
+
+    public void resetOrdersTable() {
+        clearUserOrdersTable();
+        initializeOrdersTable();
+    }
+
+    private void clearUserOrdersTable(){
+        // Remove all table rows except the first one
+        int childCount = ordersTable.getChildCount();
+        if (childCount > 1) {
+            ordersTable.removeViews(1, childCount - 1);
         }
     }
 
@@ -92,11 +104,13 @@ public class UserOrders extends Fragment {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 0.25f));
+
+        final UserOrders that = this;
         editOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
-                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(v);
+                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(that, orderId);
                 addItems(orderId);
             }
         });

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,10 +32,20 @@ import java.util.Hashtable;
 public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
 
     View root;
+    UserOrders parent;
+    int orderId;
+
     TableLayout orderTable;
     Button delete, update;
     double totalCost;
     TextView totalCostTextView;
+    Hashtable<Integer,Integer> totalProductsOrdered;
+
+    public UserOrderEditBottomSheetDialog(UserOrders parent, int orderId){
+        this.parent = parent;
+        this.orderId = orderId;
+    }
+
 
     @Nullable
     @Override
@@ -43,10 +54,11 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
 
         orderTable = root.findViewById(R.id.orderTable);
         delete = root.findViewById(R.id.deleteOrder);
-        update = root.findViewById(R.id.editOrder);
+//        update = root.findViewById(R.id.editOrder);
         totalCostTextView = root.findViewById(R.id.totalCost);
 
         initializeCartTable();
+        layoutVisibility();
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,14 +67,22 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
             }
         });
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateOrder();
-            }
-        });
+//        update.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                updateOrder();
+//            }
+//        });
 
         return root;
+    }
+
+    private void layoutVisibility(){
+        totalProductsOrdered = Cart.Instance().TotalProducts();
+        if(!totalProductsOrdered.isEmpty()){
+            totalCostTextView.setVisibility(View.VISIBLE);
+            totalCostTextView.setText("Total: " + totalCost + "€");
+        }
     }
 
     @Override
@@ -81,7 +101,7 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
     }
 
     private void initializeCartTable(){
-        Hashtable<Integer,Integer> totalProductsOrdered = Cart.Instance().TotalProducts();
+        totalProductsOrdered = Cart.Instance().TotalProducts();
         MyAppDatabase db = MyAppDatabase.Instance();
         totalCost = 0;
 
@@ -92,43 +112,52 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
         }
     }
 
-    private void updateOrder(){
-        Hashtable<Integer,Integer> totalProductsOrdered = Cart.Instance().TotalProducts();
-
-        // Insert User's Order to Database
-        Orders order = new Orders();
-        order.setUid(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
-        MyAppDatabase db = MyAppDatabase.Instance();
-        long orderId = db.myDao().insertOrder(order);
-
-        // Insert Ordered Items to Database
-        OrderedItems orderedItems = new OrderedItems();
-        orderedItems.setOid((int) orderId);
-        orderedItems.setType("purchase");
-
-        for(int id : totalProductsOrdered.keySet()){
-            orderedItems.setPid(id);
-            orderedItems.setQuantity(totalProductsOrdered.get(id));
-            db.myDao().insertOrderedItems(orderedItems);
-        }
-
-        Toast.makeText(getActivity(), "Order send!", Toast.LENGTH_SHORT).show();
-
-    }
+//    private void updateOrder(){
+//        totalProductsOrdered = Cart.Instance().TotalProducts();
+//        MyAppDatabase db = MyAppDatabase.Instance();
+//
+//        // Update OrderedItems table
+//        OrderedItems orderedItems = new OrderedItems();
+//        orderedItems.setOid(5);
+//        for(int id : totalProductsOrdered.keySet()){
+//            orderedItems.setPid(id);
+//            orderedItems.setQuantity(totalProductsOrdered.get(id));
+//            db.myDao().insertOrderedItems(orderedItems);
+//        }
+//
+////        // Insert User's Order to Database
+////        Orders order = new Orders();
+////        order.setUid(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
+////        MyAppDatabase db = MyAppDatabase.Instance();
+////        long orderId = db.myDao().insertOrder(order);
+////
+////        // Insert Ordered Items to Database
+////        OrderedItems orderedItems = new OrderedItems();
+////        orderedItems.setOid((int) orderId);
+////        orderedItems.setType("purchase");
+////
+////        for(int id : totalProductsOrdered.keySet()){
+////            orderedItems.setPid(id);
+////            orderedItems.setQuantity(totalProductsOrdered.get(id));
+////            db.myDao().insertOrderedItems(orderedItems);
+////        }
+//
+//        Toast.makeText(getActivity(), "Order updated!", Toast.LENGTH_SHORT).show();
+//
+//    }
 
     private void deleteOrder(){
-        // Remove all table rows except the first one
-//        int childCount = cartTable.getChildCount();
-//        if (childCount > 1) {
-//            cartTable.removeViews(1, childCount - 1);
-//        }
-//        Cart.Instance().ClearProducts();
-//
-//        // Layout visibility reverse
-//        cartEmpty.setVisibility(View.VISIBLE);
-//        clear.setVisibility(View.GONE);
-//        confirm.setVisibility(View.GONE);
-//        totalCostTextView.setVisibility(View.GONE);
+
+        MyAppDatabase db = MyAppDatabase.Instance();
+        Orders order = new Orders();
+        order.setId(orderId);
+        db.myDao().deleteOrder(order);
+
+        parent.resetOrdersTable();
+
+        // Closes Button Sheet Dialog
+        this.dismiss();
+        Toast.makeText(getActivity(), "Order canceled.", Toast.LENGTH_SHORT).show();
     }
 
     private void addRow(String product, double price, int count) {
@@ -143,6 +172,11 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 1f);
 
+        TableRow.LayoutParams quantityParams = new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                0.5f);
+
         TableRow orderTableRow = new TableRow(context);
         orderTableRow.setLayoutParams(rowParams);
 
@@ -150,7 +184,11 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
 
         TextView clickedProduct = new TextView(context);
         TextView clickedPrice  = new TextView(context);
-        EditText clickedQuantity = new EditText(context);
+        TableLayout quantity = new TableLayout(context);
+        TableRow quantityRow = new TableRow(context);
+        TextView clickedQuantity = new TextView(context);
+        Button increaseQuantity = new Button(context);
+        Button decreaseQuantity = new Button(context);
         TextView clickedTotal = new TextView(context);
 
         clickedProduct.setGravity(Gravity.CENTER);
@@ -161,13 +199,29 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
         clickedProduct.setLayoutParams(textParams);
         clickedPrice.setLayoutParams(textParams);
         clickedQuantity.setLayoutParams(textParams);
+//            quantityRow.setLayoutParams(rowParams);
+//                clickedQuantity.setLayoutParams(textParams);
+//                increaseQuantity.setLayoutParams(quantityParams);
+//                decreaseQuantity.setLayoutParams(quantityParams);
         clickedTotal.setLayoutParams(textParams);
 
         clickedProduct.setText(product);
         clickedPrice.setText(price + "€");
         clickedQuantity.setText(Integer.toString(count));
+//        clickedQuantity.setEnabled(false);
+//        increaseQuantity.setText("+");
+//        decreaseQuantity.setText("-");
         price = price * count;
         clickedTotal.setText(price + "€");
+//        clickedQuantity.addTextChangedListener();
+
+        // TODO: add buttons to row
+        // TODO button listeners
+
+//        quantityRow.addView(clickedQuantity);
+//        quantityRow.addView(increaseQuantity);
+//        quantityRow.addView(decreaseQuantity);
+//        quantity.addView(quantityRow);
 
         orderTableRow.addView(clickedProduct);
         orderTableRow.addView(clickedPrice);

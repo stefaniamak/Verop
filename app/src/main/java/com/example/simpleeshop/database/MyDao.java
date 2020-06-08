@@ -48,8 +48,6 @@ public interface MyDao {
     @Update
     public void updateProduct(Products products);
 
-    @Update
-    public void updateOrder(Orders orders);
 
     @Update
     public void updateOrderedItems(OrderedItems orderedItems);

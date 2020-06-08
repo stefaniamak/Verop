@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.ui.account.UserOrderEditBottomSheetDialog;
+import com.example.simpleeshop.ui.account.UserOrders;
 import com.example.simpleeshop.ui.shop.CartBottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -117,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public void openOrderDetailsSheetDialog(View v){
-        UserOrderEditBottomSheetDialog userOrderEditSheet = new UserOrderEditBottomSheetDialog();
+    public void openOrderDetailsSheetDialog(UserOrders parent, int orderId){
+        UserOrderEditBottomSheetDialog userOrderEditSheet = new UserOrderEditBottomSheetDialog(parent, orderId);
         userOrderEditSheet.show(getSupportFragmentManager(), "Order details Bottom Sheet");
     }
 }
