@@ -17,9 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.simpleeshop.MainActivity;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
 import com.example.simpleeshop.database.Products;
 import com.example.simpleeshop.ui.shop.Cart;
@@ -93,7 +95,9 @@ public class UserOrders extends Fragment {
         editOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).openOrderDetailsSheetDialog(v);
+                addItems(orderId);
             }
         });
 
@@ -102,4 +106,13 @@ public class UserOrders extends Fragment {
         ordersTable.addView(orderTableRow);
 //        listView.setAdapter(cartListAdapter);
     }
+
+    private void addItems(int orderId){
+        MyAppDatabase db = MyAppDatabase.Instance();
+        List<OrderedItems> orderedProducts = db.myDao().getOrderedProductsIds(orderId);
+        for(OrderedItems product : orderedProducts){
+            Cart.Instance().ShowOrderedProducts(product.getPid(), product.getQuantity());
+        }
+    }
+
 }

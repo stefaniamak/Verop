@@ -80,8 +80,11 @@ public interface MyDao {
     @Query("SELECT pi.path FROM productImages pi JOIN products pr ON pi.id = pr.imageId WHERE pr.id = :prId")
     public String getImagePath(int prId);
 
-    @Query("SELECT * FROM orders WHERE uid = :id")
-    public List<Orders> getUserOrders(int id);
+    @Query("SELECT * FROM orders WHERE uid = :userId")
+    public List<Orders> getUserOrders(int userId);
+
+    @Query("SELECT * FROM orderedItems ord JOIN products p ON ord.pid = p.id WHERE ord.oid = :orderId")
+    public List<OrderedItems> getOrderedProductsIds(int orderId);
 
     @Query("SELECT quantity FROM orderedItems WHERE type = 'purchase'")
     public List<Integer> getTotalPurchases();

@@ -1,14 +1,14 @@
-package com.example.simpleeshop.ui.shop;
+package com.example.simpleeshop.ui.account;
 
 import android.content.Context;
-import android.os.Build;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
@@ -24,82 +23,76 @@ import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
 import com.example.simpleeshop.database.Products;
+import com.example.simpleeshop.ui.shop.Cart;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.function.BiConsumer;
 
-public class CartBottomSheetDialog extends BottomSheetDialogFragment {
+public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
 
-    TableLayout cartTable;
     View root;
-    TextView cartEmpty, totalCostTextView;
-    Button clear, confirm;
+    TableLayout orderTable;
+    Button delete, update;
     double totalCost;
+    TextView totalCostTextView;
 
-    //TextView clickedProduct;
-
-    TextView clickedTotal;
-    
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_cart, container, false);
-        cartTable = root.findViewById(R.id.cartTable);
+        root = inflater.inflate(R.layout.fragment_user_orders_dialog_sheet, container, false);
 
-        cartEmpty = root.findViewById(R.id.cartEmpty);
-        clear = root.findViewById(R.id.clear);
-        confirm = root.findViewById(R.id.confirm);
+        orderTable = root.findViewById(R.id.orderTable);
+        delete = root.findViewById(R.id.deleteOrder);
+        update = root.findViewById(R.id.editOrder);
         totalCostTextView = root.findViewById(R.id.totalCost);
 
         initializeCartTable();
-        layoutVisibility();
 
-        clear.setOnClickListener(new View.OnClickListener() {
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearCart();
+                deleteOrder();
             }
         });
 
-        confirm.setOnClickListener(new View.OnClickListener() {
+        update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmPurchase();
+                updateOrder();
             }
         });
 
         return root;
     }
 
-    private void layoutVisibility(){
-        Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
-        if(!totalProducts.isEmpty()){
-            cartEmpty.setVisibility(View.GONE);
-            clear.setVisibility(View.VISIBLE);
-            confirm.setVisibility(View.VISIBLE);
-            totalCostTextView.setVisibility(View.VISIBLE);
-            totalCostTextView.setText("Total: " + totalCost + "€");
-        }
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        clearBottomSheetMap();
     }
 
+    private void clearBottomSheetMap(){
+        // Remove all table rows except the first one
+        int childCount = orderTable.getChildCount();
+        if (childCount > 1) {
+            orderTable.removeViews(1, childCount - 1);
+        }
+        Cart.Instance().ClearProducts();
+    }
 
     private void initializeCartTable(){
-        Hashtable<Integer,Integer> totalProducts = Cart.Instance().TotalProducts();
+        Hashtable<Integer,Integer> totalProductsOrdered = Cart.Instance().TotalProducts();
         MyAppDatabase db = MyAppDatabase.Instance();
         totalCost = 0;
 
-        for(int id : totalProducts.keySet()) {
+        for(int id : totalProductsOrdered.keySet()) {
             Products product = db.myDao().getProduct(id);
-            addRow(product.getName(), product.getPrice(), totalProducts.get(id));
-            totalCost += totalProducts.get(id) * product.getPrice();
+            addRow(product.getName(), product.getPrice(), totalProductsOrdered.get(id));
+            totalCost += totalProductsOrdered.get(id) * product.getPrice();
         }
     }
 
-    private void confirmPurchase(){
+    private void updateOrder(){
         Hashtable<Integer,Integer> totalProductsOrdered = Cart.Instance().TotalProducts();
 
         // Insert User's Order to Database
@@ -119,24 +112,23 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
             db.myDao().insertOrderedItems(orderedItems);
         }
 
-        clearCart();
         Toast.makeText(getActivity(), "Order send!", Toast.LENGTH_SHORT).show();
 
     }
 
-    private void clearCart(){
+    private void deleteOrder(){
         // Remove all table rows except the first one
-        int childCount = cartTable.getChildCount();
-        if (childCount > 1) {
-            cartTable.removeViews(1, childCount - 1);
-        }
-        Cart.Instance().ClearProducts();
-
-        // Layout visibility reverse
-        cartEmpty.setVisibility(View.VISIBLE);
-        clear.setVisibility(View.GONE);
-        confirm.setVisibility(View.GONE);
-        totalCostTextView.setVisibility(View.GONE);
+//        int childCount = cartTable.getChildCount();
+//        if (childCount > 1) {
+//            cartTable.removeViews(1, childCount - 1);
+//        }
+//        Cart.Instance().ClearProducts();
+//
+//        // Layout visibility reverse
+//        cartEmpty.setVisibility(View.VISIBLE);
+//        clear.setVisibility(View.GONE);
+//        confirm.setVisibility(View.GONE);
+//        totalCostTextView.setVisibility(View.GONE);
     }
 
     private void addRow(String product, double price, int count) {
@@ -151,14 +143,14 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 1f);
 
-        TableRow cartTableRow = new TableRow(context);
-        cartTableRow.setLayoutParams(rowParams);
+        TableRow orderTableRow = new TableRow(context);
+        orderTableRow.setLayoutParams(rowParams);
 
-        cartTableRow.setGravity(Gravity.CENTER);
+        orderTableRow.setGravity(Gravity.CENTER);
 
         TextView clickedProduct = new TextView(context);
         TextView clickedPrice  = new TextView(context);
-        TextView clickedQuantity = new TextView(context);
+        EditText clickedQuantity = new EditText(context);
         TextView clickedTotal = new TextView(context);
 
         clickedProduct.setGravity(Gravity.CENTER);
@@ -177,12 +169,12 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         price = price * count;
         clickedTotal.setText(price + "€");
 
-        cartTableRow.addView(clickedProduct);
-        cartTableRow.addView(clickedPrice);
-        cartTableRow.addView(clickedQuantity);
-        cartTableRow.addView(clickedTotal);
+        orderTableRow.addView(clickedProduct);
+        orderTableRow.addView(clickedPrice);
+        orderTableRow.addView(clickedQuantity);
+        orderTableRow.addView(clickedTotal);
 
-        cartTable.addView(cartTableRow);
+        orderTable.addView(orderTableRow);
 //        listView.setAdapter(cartListAdapter);
     }
 }

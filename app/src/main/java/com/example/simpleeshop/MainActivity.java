@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.simpleeshop.database.MyAppDatabase;
+import com.example.simpleeshop.ui.account.UserOrderEditBottomSheetDialog;
 import com.example.simpleeshop.ui.shop.CartBottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 CartBottomSheetDialog cartBottomSheet = new CartBottomSheetDialog();
-                cartBottomSheet.show(getSupportFragmentManager(), "CartFragment Bottom Sheer");
+                cartBottomSheet.show(getSupportFragmentManager(), "CartFragment Bottom Sheet");
 
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 ////                        .setAction("Action", null).show();
@@ -114,5 +115,10 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferenceConfig.writeLoginStatus(false);
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+    }
+
+    public void openOrderDetailsSheetDialog(View v){
+        UserOrderEditBottomSheetDialog userOrderEditSheet = new UserOrderEditBottomSheetDialog();
+        userOrderEditSheet.show(getSupportFragmentManager(), "Order details Bottom Sheet");
     }
 }

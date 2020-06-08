@@ -23,6 +23,10 @@ public class Cart {
             totalProducts.put(productID, 1);
     }
 
+    public void ShowOrderedProducts(int productID, int quantity){
+        totalProducts.put(productID, quantity);
+    }
+
     public void ClearProducts(){
         totalProducts.clear();
     }
