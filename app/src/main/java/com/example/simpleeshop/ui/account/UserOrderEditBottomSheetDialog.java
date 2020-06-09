@@ -79,7 +79,7 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
         totalProductsOrdered = DetailsMap.Instance().TotalProducts();
         if(!totalProductsOrdered.isEmpty()){
             totalCostTextView.setVisibility(View.VISIBLE);
-            totalCostTextView.setText("Total: " + totalCost + "€");
+            totalCostTextView.setText("Total: " + getPriceToString(totalCost));
         }
     }
 
@@ -221,13 +221,13 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
         clickedTotal.setLayoutParams(textParams);
 
         clickedProduct.setText(product);
-        clickedPrice.setText(price + "€");
+        clickedPrice.setText(getPriceToString(price));
         clickedQuantity.setText(Integer.toString(count));
 //        clickedQuantity.setEnabled(false);
 //        increaseQuantity.setText("+");
 //        decreaseQuantity.setText("-");
         price = price * count;
-        clickedTotal.setText(price + "€");
+        clickedTotal.setText(getPriceToString(price));
 //        clickedQuantity.addTextChangedListener();
 
 //        quantityRow.addView(clickedQuantity);
@@ -242,5 +242,9 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
 
         orderTable.addView(orderTableRow);
 //        listView.setAdapter(cartListAdapter);
+    }
+
+    private String getPriceToString(double price){
+        return String.format("%.1f €", price);
     }
 }

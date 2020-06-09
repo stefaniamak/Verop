@@ -81,7 +81,7 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
         totalProductsOrdered = db.myDao().getOrderedProductsIds(orderId);
         if(!totalProductsOrdered.isEmpty()){
             totalCostTextView.setVisibility(View.VISIBLE);
-            totalCostTextView.setText("Total: " + totalCost + "€");
+            totalCostTextView.setText("Total: " + getPriceToString(totalCost));
         }
     }
 
@@ -220,12 +220,12 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
         clickedTotal.setLayoutParams(textParams);
 
         clickedProduct.setText(product);
-        clickedPrice.setText(price + "€");
+        clickedPrice.setText(Integer.toString(count));
             decreaseQuantity.setText("-");
             clickedQuantity.setText(Integer.toString(count));
             increaseQuantity.setText("+");
         price = price * count;
-        clickedTotal.setText(price + "€");
+        clickedTotal.setText(getPriceToString(price));
 
         quantityLinearLayout.addView(decreaseQuantity);
         quantityLinearLayout.addView(clickedQuantity);
@@ -269,5 +269,9 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
         int modifiedQuantity = totalProductsOrdered.get(listItem).getQuantity() + modifier;
         totalProductsOrdered.get(listItem).setQuantity(modifiedQuantity);
         return Integer.toString(modifiedQuantity);
+    }
+
+    private String getPriceToString(double price){
+        return String.format("%.1f €", price);
     }
 }

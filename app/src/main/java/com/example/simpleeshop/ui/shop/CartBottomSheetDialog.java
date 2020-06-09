@@ -79,7 +79,7 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
             clear.setVisibility(View.VISIBLE);
             confirm.setVisibility(View.VISIBLE);
             totalCostTextView.setVisibility(View.VISIBLE);
-            totalCostTextView.setText("Total: " + totalCost + "€");
+            totalCostTextView.setText("Total: " + getPriceToString(totalCost));
         }
     }
 
@@ -182,10 +182,10 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         clickedTotal.setLayoutParams(textParams);
 
         clickedProduct.setText(product);
-        clickedPrice.setText(price + "€");
+        clickedPrice.setText(getPriceToString(price));
         clickedQuantity.setText(Integer.toString(count));
         price = price * count;
-        clickedTotal.setText(price + "€");
+        clickedTotal.setText(getPriceToString(price));
 
         cartTableRow.addView(clickedProduct);
         cartTableRow.addView(clickedPrice);
@@ -194,5 +194,9 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
 
         cartTable.addView(cartTableRow);
 //        listView.setAdapter(cartListAdapter);
+    }
+
+    private String getPriceToString(double price){
+        return String.format("%.1f €", price);
     }
 }
