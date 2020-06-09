@@ -50,7 +50,7 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_user_orders_dialog_sheet, container, false);
 
-        orderTable = root.findViewById(R.id.orderTable);
+        orderTable = root.findViewById(R.id.productListDetailsTable);
         delete = root.findViewById(R.id.deleteOrder);
 //        update = root.findViewById(R.id.editOrder);
         totalCostTextView = root.findViewById(R.id.totalCost);
@@ -229,9 +229,6 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
         price = price * count;
         clickedTotal.setText(price + "€");
 //        clickedQuantity.addTextChangedListener();
-
-        // TODO: add buttons to row
-        // TODO button listeners
 
 //        quantityRow.addView(clickedQuantity);
 //        quantityRow.addView(increaseQuantity);

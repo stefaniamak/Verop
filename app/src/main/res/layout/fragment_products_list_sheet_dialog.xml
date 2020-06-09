@@ -11,7 +11,7 @@
 
 
     <TableLayout
-        android:id="@+id/orderTable"
+        android:id="@+id/productListDetailsTable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -166,7 +166,7 @@
         android:text="Delete product"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderTable" />
+        app:layout_constraintTop_toBottomOf="@+id/productListDetailsTable" />
 
     <Button
         android:id="@+id/updateListProduct"
@@ -176,7 +176,7 @@
         android:text="Confirm changes"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderTable" />
+        app:layout_constraintTop_toBottomOf="@+id/productListDetailsTable" />
 
     <Button
         android:id="@+id/insertListProduct"
@@ -186,6 +186,6 @@
         android:text="Insert product"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderTable" />
+        app:layout_constraintTop_toBottomOf="@+id/productListDetailsTable" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

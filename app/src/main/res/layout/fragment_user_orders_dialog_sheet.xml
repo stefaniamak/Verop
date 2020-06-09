@@ -34,11 +34,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/orderTable"
+        app:layout_constraintTop_toBottomOf="@+id/productListDetailsTable"
         tools:ignore="MissingConstraints" />
 
     <TableLayout
-        android:id="@+id/orderTable"
+        android:id="@+id/productListDetailsTable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:stretchColumns="1"
-            app:layout_constraintTop_toBottomOf="@+id/orderTable">
+            app:layout_constraintTop_toBottomOf="@+id/productListDetailsTable">
 
             <TextView
                 android:layout_width="wrap_content"

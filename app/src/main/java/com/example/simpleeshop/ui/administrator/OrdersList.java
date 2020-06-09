@@ -1,10 +1,12 @@
 package com.example.simpleeshop.ui.administrator;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.example.simpleeshop.MainActivity;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.UiRefresher;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Orders;
 import com.example.simpleeshop.ui.account.UserOrders;
@@ -27,7 +30,7 @@ import com.example.simpleeshop.ui.account.UserOrders;
 import java.util.List;
 
 
-public class OrdersList extends Fragment {
+public class OrdersList extends Fragment implements UiRefresher.RefreshListener {
     TableLayout ordersListTable;
     View root;
 
@@ -38,8 +41,22 @@ public class OrdersList extends Fragment {
         ordersListTable = root.findViewById(R.id.userOrdersTable);
 
         initializeOrdersTable();
+        UiRefresher.Instance().addListener(this);
 
         return root;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void refreshUi() {
+        clearUserOrdersTable();
+        initializeOrdersTable();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        UiRefresher.Instance().removeListener(this);
     }
 
     private void initializeOrdersTable(){
@@ -101,12 +118,12 @@ public class OrdersList extends Fragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 0.25f));
 
-//        final OrdersList that = this;
+        final OrdersList that = this;
         editOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
-                ((MainActivity)getActivity()).openOrderListSheetDialog();
+                ((MainActivity)getActivity()).openOrderListSheetDialog(that, orderId);
 //                addItems(orderId);
             }
         });

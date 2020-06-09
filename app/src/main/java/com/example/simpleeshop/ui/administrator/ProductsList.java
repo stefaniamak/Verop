@@ -18,15 +18,12 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.simpleeshop.MainActivity;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
 import com.example.simpleeshop.UiRefresher;
 import com.example.simpleeshop.database.MyAppDatabase;
-import com.example.simpleeshop.database.OrderedItems;
-import com.example.simpleeshop.database.Orders;
 import com.example.simpleeshop.database.Products;
 
 import java.util.List;
@@ -63,7 +60,7 @@ public class ProductsList extends Fragment implements UiRefresher.RefreshListene
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void refreshUi() {
-        clearUserOrdersTable();
+        clearUserProductsTable();
         initializeProductsListTable();
     }
 
@@ -90,7 +87,7 @@ public class ProductsList extends Fragment implements UiRefresher.RefreshListene
         }
     }
 
-    private void clearUserOrdersTable(){
+    private void clearUserProductsTable(){
         // Remove all table rows except the first one
         int childCount = productsListTable.getChildCount();
         if (childCount > 2) {
