@@ -35,7 +35,7 @@ public class CartMap {
             else
                 totalProducts.put(productID, 1);
         } else {
-            Toast.makeText(MyApplication.Context(), "Not enough products in storage.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApplication.Context(), "Not more products in storage.", Toast.LENGTH_SHORT).show();
         }
     }
 

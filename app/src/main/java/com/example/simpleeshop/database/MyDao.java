@@ -109,6 +109,9 @@ public interface MyDao {
     @Query("SELECT * FROM orderedItems ord JOIN products p ON ord.pid = p.id WHERE ord.oid = :orderId")
     public List<OrderedItems> getOrderedProductsIds(int orderId);
 
+    @Query("SELECT * FROM products p JOIN orderedItems ord ON ord.pid = p.id WHERE ord.oid = :orderId")
+    public List<Products> getOrderedProducts(int orderId);
+
     @Query("SELECT quantity FROM orderedItems WHERE type = 'purchase'")
     public List<Integer> getTotalPurchases();
 

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.UiRefresher;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
@@ -87,16 +88,16 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        clearBottomSheetMap();
+//        clearBottomSheetMap();
     }
 
-    private void clearBottomSheetMap(){
-        // Remove all table rows except the first one
-        int childCount = orderTable.getChildCount();
-        if (childCount > 1) {
-            orderTable.removeViews(1, childCount - 1);
-        }
-    }
+//    private void clearBottomSheetMap(){
+//        // Remove all table rows except the first one
+//        int childCount = orderTable.getChildCount();
+//        if (childCount > 1) {
+//            orderTable.removeViews(1, childCount - 1);
+//        }
+//    }
 
     private void initializeCartTable(){
         MyAppDatabase db = MyAppDatabase.Instance();
@@ -113,32 +114,17 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
         }
     }
 
-    private void updateOrder(){
-        MyAppDatabase db = MyAppDatabase.Instance();
-        totalProductsOrdered = db.myDao().getOrderedProductsIds(orderId);
-
-
-        Toast.makeText(getActivity(), "Order updated!", Toast.LENGTH_SHORT).show();
-
-    }
-
     private void deleteOrder(){
-
         MyAppDatabase db = MyAppDatabase.Instance();
 
-        // Updates Product Reserve
-        OrderedItems orderedItems = new OrderedItems();
-        List<OrderedItems> orderedItemsList = db.myDao().getOrderedProductsIds(orderId);
-
-        for(OrderedItems orderedItem : orderedItemsList){
+        // Updates Product reserve
+        for(OrderedItems orderedItem : totalProductsOrdered){
             // Gets Ordered quantity
             int productQuantity = orderedItem.getQuantity();
-
             // Updates Products
             Products product;
             int originalReserve = db.myDao().getProductReserve(orderedItem.getPid());
             db.myDao().updateProductReserve(orderedItem.getPid(), originalReserve + productQuantity);
-
         }
 
         // Deletes order
@@ -149,12 +135,44 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
         parent.resetOrdersTable();
 
         // Closes Button Sheet Dialog
+        doDismissAndRefresh("Order canceled.");
+    }
+
+    private void updateOrder(){
+        MyAppDatabase db = MyAppDatabase.Instance();
+
+        updateProductsQuantity();
+        for(OrderedItems orderedItem : totalProductsOrdered){
+            db.myDao().updateOrderedItems(orderedItem);
+        }
+
+        // Closes Button Sheet Dialog
+        doDismissAndRefresh("Order updated!");
+    }
+
+    private void updateProductsQuantity(){
+        MyAppDatabase db = MyAppDatabase.Instance();
+        List<OrderedItems> firstOrderedItems = db.myDao().getOrderedProductsIds(orderId);
+        List<Products> products = db.myDao().getOrderedProducts(orderId);
+
+        for(int i = 0; i < totalProductsOrdered.size(); i++){
+            int productId = totalProductsOrdered.get(i).getPid();
+            int oldReserve = products.get(i).getReserve();
+            int newReserve = oldReserve + (firstOrderedItems.get(i).getQuantity() - totalProductsOrdered.get(i).getQuantity());
+            db.myDao().updateProductReserve( productId, newReserve);
+        }
+    }
+
+    public void doDismissAndRefresh(String message){
+        // Refresh
+        UiRefresher.Instance().refreshUis();
+        // Dismiss
         this.dismiss();
-        Toast.makeText(getActivity(), "Order canceled.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     private void addRow(String product, double price, final int count, final int listItem) {
-        Context context = MyApplication.Context();
+        final Context context = MyApplication.Context();
 
         TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -225,7 +243,14 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
         increaseQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickedQuantity.setText(updateQuantity(1, listItem));
+                MyAppDatabase db = MyAppDatabase.Instance();
+                int productReserve = db.myDao().getProductReserve(totalProductsOrdered.get(listItem).getPid());
+
+                if(totalProductsOrdered.get(listItem).getQuantity() <= productReserve){
+                    clickedQuantity.setText(updateQuantity(1, listItem));
+                } else {
+                    Toast.makeText(context, "Not more products in storage.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         decreaseQuantity.setOnClickListener(new View.OnClickListener() {
@@ -236,6 +261,7 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
                 }
             }
         });
+        //  totalProductsOrdered.get(listItem).getQuantity()
 //        listView.setAdapter(cartListAdapter);
     }
 
