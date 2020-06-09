@@ -10,9 +10,11 @@ import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -24,6 +26,8 @@ import com.example.simpleeshop.database.Products;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.List;
+
+import static com.example.simpleeshop.MyApplication.getImageId;
 
 
 public class ProductsListSheetDialog extends BottomSheetDialogFragment {
@@ -37,6 +41,7 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
     EditText nameEditView;
     TextView priceTextView, reserveTextView;
     Button delete, update, increasePrice, decreasePrice, increaseReserve, decreaseReserve, insertProduct;
+    ImageView spinnerImage;
 //    double totalCost;
 //    Hashtable<Integer,Integer> totalProductsOrdered;
 
@@ -59,6 +64,7 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
         } else {
             showcaseProduct();
         }
+        buttonsVisibility();
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +85,19 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 insertProduct();
             }
+        });
+
+        imageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                setImage(position+1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
         });
 
         return root;
@@ -102,7 +121,20 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
         increaseReserve = root.findViewById(R.id.increaseReserveButton);
         decreaseReserve = root.findViewById(R.id.decreaseReserveButton);
         insertProduct = root.findViewById(R.id.insertListProduct);
+        // ImageView
+        spinnerImage = root.findViewById(R.id.spinnerImage);
+    }
 
+    private void buttonsVisibility() {
+        if(productId == -1){
+            delete.setVisibility(View.GONE);
+            update.setVisibility(View.GONE);
+            insertProduct.setVisibility(View.VISIBLE);
+        } else {
+            delete.setVisibility(View.VISIBLE);
+            update.setVisibility(View.VISIBLE);
+            insertProduct.setVisibility(View.GONE);
+        }
     }
 
     private void setDefaultView() {
@@ -122,10 +154,18 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
     }
 
     private void setShowcasedVariables(int imageId, String name, double price, int reserve){
+        setImage(imageId);
         loadSpinnerData();
+        imageSpinner.setSelection(imageId - 1);
         nameEditView.setText(name);
         priceTextView.setText(price + "€");
         reserveTextView.setText(Integer.toString(reserve));
+    }
+
+    private void setImage(int imageId){
+        MyAppDatabase db = MyAppDatabase.Instance();
+        String imagePath = db.myDao().getImagePathByImgId(imageId);
+        spinnerImage.setImageResource(getImageId(imagePath));
     }
 
     private void loadSpinnerData() {
