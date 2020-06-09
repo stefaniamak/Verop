@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.simpleeshop.MainActivity;
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.UiRefresher;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.OrderedItems;
 import com.example.simpleeshop.database.Orders;
@@ -33,7 +34,7 @@ import java.util.List;
 import static com.example.simpleeshop.MyApplication.getImageId;
 
 
-public class ProductsList extends Fragment {
+public class ProductsList extends Fragment implements UiRefresher.RefreshListener {
 
     TableLayout productsListTable;
     View root;
@@ -54,18 +55,29 @@ public class ProductsList extends Fragment {
         });
 
         initializeProductsListTable();
+        UiRefresher.Instance().addListener(this);
 
         return root;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void refreshUi() {
+        clearUserOrdersTable();
+        initializeProductsListTable();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        UiRefresher.Instance().removeListener(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initializeProductsListTable(){
         MyAppDatabase db = MyAppDatabase.Instance();
 
-        // todo call getProductsSales
-
         List<Products> productsList = db.myDao().getProducts();
-
 
         for(Products product : productsList) {
             String imagePath = db.myDao().getImagePath(product.getId());
@@ -76,12 +88,6 @@ public class ProductsList extends Fragment {
             }
             addRow(imagePath, product.getName(), product.getPrice(), product.getReserve(), soldItems, product.getId());
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void resetOrdersTable() {
-        clearUserOrdersTable();
-        initializeProductsListTable();
     }
 
     private void clearUserOrdersTable(){
@@ -171,4 +177,6 @@ public class ProductsList extends Fragment {
         productsListTable.addView(productListTableRow);
 //        listView.setAdapter(cartListAdapter);
     }
+
+
 }

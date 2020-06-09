@@ -18,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.simpleeshop.MyApplication;
 import com.example.simpleeshop.R;
+import com.example.simpleeshop.UiRefresher;
 import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Products;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -33,8 +35,7 @@ import static com.example.simpleeshop.MyApplication.getImageId;
 public class ProductsListSheetDialog extends BottomSheetDialogFragment {
 
     View root;
-//    UserOrders parent;
-    int productId, reserve;
+    int productId, reserve, imgId;
     double price;
     TableLayout productsListTable;
     Spinner imageSpinner;
@@ -166,6 +167,7 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
         MyAppDatabase db = MyAppDatabase.Instance();
         String imagePath = db.myDao().getImagePathByImgId(imageId);
         spinnerImage.setImageResource(getImageId(imagePath));
+        imgId = imageId;
     }
 
     private void loadSpinnerData() {
@@ -184,15 +186,23 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
         imageSpinner.setAdapter(dataAdapter);
     }
 
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
+    private Products getShowcasedVariables(){
+        MyAppDatabase db = MyAppDatabase.Instance();
+        Products product = new Products();
+
+        product.setName(nameEditView.getText().toString());
+        product.setPrice(price);
+        product.setImageId(imgId);
+        product.setReserve(reserve);
+
+        return product;
     }
 
     private void deleteProduct(){
         MyAppDatabase db = MyAppDatabase.Instance();
         Products product = db.myDao().getProduct(productId);
         db.myDao().deleteProduct(product);
+        doDismissAndRefresh("Product deleted.");
     }
 
     private void updateProduct(){
@@ -200,26 +210,25 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
         Products product = getShowcasedVariables();
         product.setId(productId);
         db.myDao().updateProduct(product);
+        doDismissAndRefresh("Product updated.");
     }
 
     private void insertProduct(){
         MyAppDatabase db = MyAppDatabase.Instance();
         db.myDao().insertProduct(getShowcasedVariables());
+        doDismissAndRefresh("Product inserted.");
     }
 
-    private Products getShowcasedVariables(){
-        MyAppDatabase db = MyAppDatabase.Instance();
-        Products product = new Products();
-
-        // todo pairnw string apo spinner (h position?)
-        // todo vriskw image id apo to string
-
-        product.setName(nameEditView.getText().toString());
-        product.setPrice(price);
-        product.setImageId(1); // todo set image id
-        product.setReserve(reserve);
-
-        return product;
+    public void doDismissAndRefresh(String message){
+        // Refresh
+        UiRefresher.Instance().refreshUis();
+        // Dismiss
+        this.dismiss();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+    }
 }
