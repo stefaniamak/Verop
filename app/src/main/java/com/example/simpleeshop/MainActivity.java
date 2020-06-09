@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
         userOrderEditSheet.show(getSupportFragmentManager(), "Order details Bottom Sheet");
     }
 
-    public void openProductsListSheetDialog(){
-        ProductsListSheetDialog productsListSheetDialog = new ProductsListSheetDialog();
+    public void openProductsListSheetDialog(int productId){
+        ProductsListSheetDialog productsListSheetDialog = new ProductsListSheetDialog(productId);
         productsListSheetDialog.show(getSupportFragmentManager(), "Order details Bottom Sheet");
     }
 

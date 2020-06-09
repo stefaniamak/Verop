@@ -163,7 +163,6 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
 
         }
 
-
         // Deletes order
         Orders order = new Orders();
         order.setId(orderId);

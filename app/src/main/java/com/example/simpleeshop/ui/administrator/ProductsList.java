@@ -44,6 +44,14 @@ public class ProductsList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_products_list, container, false);
         productsListTable = root.findViewById(R.id.products_list_table);
+        Button createButton = root.findViewById(R.id.createProductButton);
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).openProductsListSheetDialog(-1);
+            }
+        });
 
         initializeProductsListTable();
 
@@ -66,7 +74,7 @@ public class ProductsList extends Fragment {
             for(Integer i : orderedItemQuantityListList) {
                 soldItems += i;
             }
-            addRow(imagePath, product.getName(), product.getPrice(), product.getReserve(), soldItems);
+            addRow(imagePath, product.getName(), product.getPrice(), product.getReserve(), soldItems, product.getId());
         }
     }
 
@@ -85,7 +93,7 @@ public class ProductsList extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void addRow(String imagePath, final String name, double price, int reserve, int sales) {
+    private void addRow(String imagePath, final String name, double price, int reserve, int sales, final int productId) {
         final Context context = MyApplication.Context();
 
         TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(
@@ -149,7 +157,7 @@ public class ProductsList extends Fragment {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(context, "Product: " + name, Toast.LENGTH_SHORT).show();
-                ((MainActivity)getActivity()).openProductsListSheetDialog();
+                ((MainActivity)getActivity()).openProductsListSheetDialog(productId);
             }
         });
 

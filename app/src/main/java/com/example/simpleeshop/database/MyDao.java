@@ -92,6 +92,9 @@ public interface MyDao {
     @Query("SELECT oi.quantity FROM orderedItems oi JOIN products pr ON pr.id = oi.pid WHERE pr.id = :prId")
     public List<Integer> getProductSales(int prId);
 
+    @Query("SELECT title FROM productImages")
+    public List<String> getproductImagesTitles();
+
             // Orders and OrderItems
 
     @Query("SELECT * FROM orders")

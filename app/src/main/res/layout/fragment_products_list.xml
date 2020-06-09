@@ -13,13 +13,23 @@ tools:context=".ui.administrator.ProductsList">
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <TableLayout
         android:id="@+id/products_list_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="27dp">
+
+        <Button
+            android:id="@+id/createProductButton"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:text="+">
+
+        </Button>
 
         <TableRow
             android:layout_width="match_parent"
