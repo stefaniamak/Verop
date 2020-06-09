@@ -41,7 +41,7 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
     Spinner imageSpinner;
     EditText nameEditView;
     TextView priceTextView, reserveTextView;
-    Button delete, update, increasePrice, decreasePrice, increaseReserve, decreaseReserve, insertProduct;
+    Button delete, update, insertProduct, increasePrice, decreasePrice, increaseReserve, decreaseReserve;
     ImageView spinnerImage;
 //    double totalCost;
 //    Hashtable<Integer,Integer> totalProductsOrdered;
@@ -67,39 +67,7 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
         }
         buttonsVisibility();
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteProduct();
-            }
-        });
-
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateProduct();
-            }
-        });
-
-        insertProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                insertProduct();
-            }
-        });
-
-        imageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                setImage(position+1);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
+        setButtonsOnClicks();
 
         return root;
     }
@@ -159,7 +127,7 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
         loadSpinnerData();
         imageSpinner.setSelection(imageId - 1);
         nameEditView.setText(name);
-        priceTextView.setText(price + "€");
+        priceTextView.setText(getPriceToString());
         reserveTextView.setText(Integer.toString(reserve));
     }
 
@@ -230,5 +198,85 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
+    }
+
+    public void setButtonsOnClicks(){
+        imageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                setImage(position+1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteProduct();
+            }
+        });
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateProduct();
+            }
+        });
+
+        insertProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertProduct();
+            }
+        });
+
+        // Increase - Decrease buttons
+
+        increasePrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updatePrice(0.1);
+            }
+        });
+        decreasePrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(price > 0.09){
+                    updatePrice(-0.1);
+                }
+            }
+        });
+        increaseReserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateReserve(1);
+            }
+        });
+        decreaseReserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(reserve > 0){
+                    updateReserve(-1);
+                }
+            }
+        });
+
+    }
+    private void updatePrice(double modifier){
+        price = price + modifier;
+        priceTextView.setText(getPriceToString());
+    }
+
+    private void updateReserve(int modifier){
+        reserve = reserve + modifier;
+        reserveTextView.setText(Integer.toString(reserve));
+    }
+
+    private String getPriceToString(){
+        return String.format("%.1f €", price);
     }
 }

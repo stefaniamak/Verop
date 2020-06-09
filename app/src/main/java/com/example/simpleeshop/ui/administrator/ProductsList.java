@@ -93,8 +93,8 @@ public class ProductsList extends Fragment implements UiRefresher.RefreshListene
     private void clearUserOrdersTable(){
         // Remove all table rows except the first one
         int childCount = productsListTable.getChildCount();
-        if (childCount > 1) {
-            productsListTable.removeViews(1, childCount - 1);
+        if (childCount > 2) {
+            productsListTable.removeViews(2, childCount - 2);
         }
     }
 
@@ -154,7 +154,7 @@ public class ProductsList extends Fragment implements UiRefresher.RefreshListene
 
         imagePathText.setImageResource(getImageId(imagePath));
         nameText.setText(name);
-        priceText.setText(price + "€");
+        priceText.setText(String.format("%.1f €", price));
         reserveText.setText(Integer.toString(reserve));
         salesTest.setText(Integer.toString(sales));
         editButton.setText(">");
@@ -171,8 +171,8 @@ public class ProductsList extends Fragment implements UiRefresher.RefreshListene
         productListTableRow.addView(nameText);
         productListTableRow.addView(priceText);
         productListTableRow.addView(reserveText);
-        productListTableRow.addView(salesTest);
         productListTableRow.addView(editButton);
+        productListTableRow.addView(salesTest);
 
         productsListTable.addView(productListTableRow);
 //        listView.setAdapter(cartListAdapter);

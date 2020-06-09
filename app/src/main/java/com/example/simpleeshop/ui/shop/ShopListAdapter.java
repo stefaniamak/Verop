@@ -57,7 +57,8 @@ public class ShopListAdapter extends ArrayAdapter<Products> {
 
         prImage.setImageResource(getImageId(imageString));
         prName.setText(product.getName());
-        prPrice.setText(product.getPrice() + "€");
+        String priceText = String.format("%.1f €", product.getPrice());
+        prPrice.setText(priceText);
         prReserve.setText(String.valueOf(product.getReserve()));
 
 
