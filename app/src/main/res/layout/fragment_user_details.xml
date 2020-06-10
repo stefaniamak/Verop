@@ -18,6 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.339"
+        android:textSize="40dp"
         tools:ignore="MissingConstraints" />
 
 
@@ -31,6 +32,7 @@
         app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/helloLabel"
+        android:textSize="40dp"
         tools:ignore="MissingConstraints" />
 
     <EditText
