@@ -90,10 +90,10 @@ public interface MyDao {
     public List<String> getProductsName();
 
     @Query("SELECT pi.path FROM productImages pi JOIN products pr ON pi.id = pr.imageId WHERE pr.id = :prId")
-    public String getImagePath(int prId);
+    public String getImagePathByProductId(int prId);
 
-    @Query("SELECT pi.path FROM productImages pi JOIN products pr ON pi.id = pr.imageId WHERE pi.id = :imgId")
-    public String getImagePathByImgId(int imgId);
+    @Query("SELECT pi.path FROM productImages pi WHERE pi.id = :imgId")
+    public String getImagePath(int imgId);
 
     @Query("SELECT oi.quantity FROM orderedItems oi JOIN products pr ON pr.id = oi.pid WHERE pr.id = :prId")
     public List<Integer> getProductSales(int prId);

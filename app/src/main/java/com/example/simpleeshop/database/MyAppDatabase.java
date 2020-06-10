@@ -38,7 +38,7 @@ public abstract class MyAppDatabase extends RoomDatabase {
         // Check if the database already exists.
         // If it does not exist, create it from the simpleeshop.db file
         // Comment the next line to reset database
-        if(!dbFile.exists())
+//        if(!dbFile.exists())
             builder.createFromAsset("simpleeshop.db");
 
         _instance = builder.build();

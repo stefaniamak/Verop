@@ -1,9 +1,6 @@
 package com.example.simpleeshop.ui.shop;
 
-import android.app.Activity;
-import android.app.Person;
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +16,6 @@ import com.example.simpleeshop.database.MyAppDatabase;
 import com.example.simpleeshop.database.Products;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.simpleeshop.MyApplication.getImageId;
 
@@ -45,7 +41,7 @@ public class ShopListAdapter extends ArrayAdapter<Products> {
         Products product = getItem(position);
 
         MyAppDatabase db = MyAppDatabase.Instance();
-        String imageString = db.myDao().getImagePath(product.getId());
+        String imageString = db.myDao().getImagePathByProductId(product.getId());
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false); // This can potentially cause problems, because it loads every item.

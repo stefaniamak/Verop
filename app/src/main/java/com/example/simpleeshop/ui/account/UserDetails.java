@@ -43,6 +43,9 @@ public class UserDetails extends Fragment implements View.OnClickListener {
         userName = root.findViewById(R.id.username);
         userPassword = root.findViewById(R.id.password);
 
+        disableButtonsIfAdminLogedIn();
+
+
         setUsernameToLabel();
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +60,16 @@ public class UserDetails extends Fragment implements View.OnClickListener {
         return root;
     }
 
+    private void disableButtonsIfAdminLogedIn(){
+        if (MyApplication.Instance().getSharedPreferenceConfig().readUserId() == 1) {
+            deleteButton.setVisibility(View.INVISIBLE);
+            userName.setVisibility(View.INVISIBLE);
+        } else {
+            deleteButton.setVisibility(View.VISIBLE);
+            userName.setVisibility(View.VISIBLE);
+        }
+
+    }
 
     @Override
     public void onClick(View v) {

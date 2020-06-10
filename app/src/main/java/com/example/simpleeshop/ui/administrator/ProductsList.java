@@ -77,7 +77,7 @@ public class ProductsList extends Fragment implements UiRefresher.RefreshListene
         List<Products> productsList = db.myDao().getProducts();
 
         for(Products product : productsList) {
-            String imagePath = db.myDao().getImagePath(product.getId());
+            String imagePath = db.myDao().getImagePathByProductId(product.getId());
             List<Integer> orderedItemQuantityListList = db.myDao().getProductSales(product.getId());
             int soldItems = 0;
             for(Integer i : orderedItemQuantityListList) {

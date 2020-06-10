@@ -2,6 +2,7 @@ package com.example.simpleeshop;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void enterApp(){
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 ////                        .setAction("Action", null).show();
             }
         });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -69,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
 
         MyAppDatabase db = MyAppDatabase.Instance();
 
+        // Remove Admin menu item if not admin
+        MenuItem adminMenuItem = navigationView.getMenu().getItem(3);//findViewById(R.id.nav_administrator);
+        if(adminMenuItem != null) {
+            if(MyApplication.Instance().getSharedPreferenceConfig().readUserId() == 1){
+                adminMenuItem.setVisible(true);
+            } else {
+                adminMenuItem.setVisible(false);
+            }
+        }
 
     }
 

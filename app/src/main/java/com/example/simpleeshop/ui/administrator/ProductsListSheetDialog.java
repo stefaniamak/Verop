@@ -133,7 +133,7 @@ public class ProductsListSheetDialog extends BottomSheetDialogFragment {
 
     private void setImage(int imageId){
         MyAppDatabase db = MyAppDatabase.Instance();
-        String imagePath = db.myDao().getImagePathByImgId(imageId);
+        String imagePath = db.myDao().getImagePath(imageId);
         spinnerImage.setImageResource(getImageId(imagePath));
         imgId = imageId;
     }

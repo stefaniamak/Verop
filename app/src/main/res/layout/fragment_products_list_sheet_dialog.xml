@@ -72,7 +72,7 @@
 
             <Spinner
                 android:id="@+id/imageSpinner"
-                android:layout_width="wrap_content"
+                android:layout_width="91dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:layout_constraintTop_toTopOf="parent"
@@ -83,18 +83,18 @@
 
             <EditText
                 android:id="@+id/productNameEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="91dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:hint="name"
+                android:hint="Type name"
                 android:textSize="15dp" />
 
             <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="1">
+                android:layout_width="53dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
 
                 <Button
                     android:id="@+id/decreasePriceButton"
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:gravity="center"
-                    android:text="Price" />
+                    android:text="0" />
 
                 <Button
                     android:id="@+id/increasePriceButton"
@@ -122,10 +122,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="5dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:gravity="center">
 
                 <Button
                     android:id="@+id/decreaseReserveButton"
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Reserve" />
+                    android:text="0" />
 
                 <Button
                     android:id="@+id/increaseReserveButton"
