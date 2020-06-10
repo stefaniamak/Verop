@@ -72,6 +72,9 @@ public interface MyDao {
     @Query("SELECT * FROM users WHERE username = :username")
     public List<User> userExists(String username);
 
+    @Query("SELECT username FROM users WHERE id = :id")
+    public String getUserUsername(int id);
+
             // Products
 
     @Query("SELECT * FROM products")

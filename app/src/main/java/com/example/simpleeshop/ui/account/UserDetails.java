@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class UserDetails extends Fragment implements View.OnClickListener {
 
+    View root;
     private SharedPreferenceConfig sharedPreferenceConfig;
     EditText userName, userPassword;
     String userNameString, userPasswordString;
@@ -32,7 +34,7 @@ public class UserDetails extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_user_details, container, false);
+        root = inflater.inflate(R.layout.fragment_user_details, container, false);
         final MainActivity activity = (MainActivity) getActivity();
 
         logoutButton = root.findViewById(R.id.logoutButton);
@@ -41,6 +43,7 @@ public class UserDetails extends Fragment implements View.OnClickListener {
         userName = root.findViewById(R.id.username);
         userPassword = root.findViewById(R.id.password);
 
+        setUsernameToLabel();
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,9 +60,6 @@ public class UserDetails extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-
-
         SharedPreferenceConfig config = MyApplication.Instance().getSharedPreferenceConfig();
         userId = config.readUserId();
         MyAppDatabase db = MyAppDatabase.Instance();
@@ -93,5 +93,12 @@ public class UserDetails extends Fragment implements View.OnClickListener {
                 ((MainActivity)getActivity()).logout();
                 break;
         }
+    }
+
+    private void setUsernameToLabel(){
+        MyAppDatabase db = MyAppDatabase.Instance();
+        String userUsername = db.myDao().getUserUsername(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
+        TextView userLabel = root.findViewById(R.id.usernameLabel);
+        userLabel.setText(userUsername);
     }
 }
