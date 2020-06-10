@@ -1,1 +1,6 @@
-# 2h-ergasia-proigmena-themata-allilepidrasis
+# Verop
+
+2η Εργασία Προηγμένης Αλληλεπίδρασης
+
+Link παρουσίασης: (ετοιμάζεται)
+PDF: (ετοιμάζεται)
