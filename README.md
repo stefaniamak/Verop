@@ -1,1 +1,5 @@
-# 2h-ergasia-proigmena-themata-allilepidrasis
+# Virop
+2η Εργασία Προηγμένης Αλληλεπίδρασης
+
+#### Link παρουσίασης: [Virop: 2η εργασία Προηγμένα Θέματα Αλληλεπίδρασης](https://www.youtube.com/watch?v=2gzVqxsVCfQ)
+#### PDF: (ύπο επεξεργασία)
