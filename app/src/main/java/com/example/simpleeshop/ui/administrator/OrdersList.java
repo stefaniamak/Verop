@@ -122,15 +122,12 @@ public class OrdersList extends Fragment implements UiRefresher.RefreshListener 
         editOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).openOrderListSheetDialog(that, orderId);
-//                addItems(orderId);
             }
         });
 
         orderTableRow.addView(editOrder);
 
         ordersListTable.addView(orderTableRow);
-//        listView.setAdapter(cartListAdapter);
     }
 }

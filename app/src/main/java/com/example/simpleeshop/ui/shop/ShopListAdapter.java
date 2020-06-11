@@ -21,7 +21,6 @@ import static com.example.simpleeshop.MyApplication.getImageId;
 
 public class ShopListAdapter extends ArrayAdapter<Products> {
 
-//    List<String> Items = null;
     Context mContext;
     int mResource;
 

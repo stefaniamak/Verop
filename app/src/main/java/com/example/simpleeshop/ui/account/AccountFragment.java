@@ -31,19 +31,10 @@ public class AccountFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        accountViewModel =
-//                ViewModelProviders.of(this).get(AccountViewModel.class);
+
         root = inflater.inflate(R.layout.fragment_account, container, false);
-//        final TextView textView = root.findViewById(R.id.text_account_title);
-//        accountViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
         ViewPager2 pager = root.findViewById(R.id.pager);
-
         pager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
@@ -80,47 +71,8 @@ public class AccountFragment extends Fragment {
                 }
         ).attach();
 
-
-//        initializeList();
-//        radioButtonDetails = root.findViewById(R.id.radioButton_profile_details);
-//        radioButtonOrders = root.findViewById(R.id.radioButton_orders);
-//
-//
-//        radioButtonDetails.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // ToDo: Code for ON CLICK
-////                textView.setText("DetailsMap radio button");
-//            }
-//        });
-//
-//        radioButtonOrders.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // ToDo: Code for ON CLICK
-////                textView.setText("Orders radio button");
-//
-//            }
-//        });
-
         return root;
     }
-
-//    private void initializeList() {
-//        listView = root.findViewById(R.id.shop_list_view);
-//        adapter = new ShopListAdapter(root.getContext());
-//        listView.setAdapter(adapter);
-//    }
-//
-//    private void setChosenList(String listName){
-//        List<String> itemList = new ArrayList<>();
-//        MyAppDatabase db = MyAppDatabase.Instance();
-//        List< String > products = db.myDao().getProductsName();
-//        for (String item:products){
-//            itemList.add(item);
-//        }
-//
-//    }
 
     public interface OnButtonSelectedListener {
         public void onButtonSelected(String message);

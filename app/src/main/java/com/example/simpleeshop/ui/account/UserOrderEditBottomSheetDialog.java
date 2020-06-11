@@ -52,7 +52,6 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
 
         orderTable = root.findViewById(R.id.productListDetailsTable);
         delete = root.findViewById(R.id.deleteOrder);
-//        update = root.findViewById(R.id.editOrder);
         totalCostTextView = root.findViewById(R.id.totalCost);
 
         initializeCartTable();
@@ -64,13 +63,6 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
                 deleteOrder();
             }
         });
-
-//        update.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                updateOrder();
-//            }
-//        });
 
         return root;
     }
@@ -109,40 +101,6 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
             totalCost += totalProductsOrdered.get(id) * product.getPrice();
         }
     }
-
-//    private void updateOrder(){
-//        totalProductsOrdered = DetailsMap.Instance().TotalProducts();
-//        MyAppDatabase db = MyAppDatabase.Instance();
-//
-//        // Update OrderedItems table
-//        OrderedItems orderedItems = new OrderedItems();
-//        orderedItems.setOid(5);
-//        for(int id : totalProductsOrdered.keySet()){
-//            orderedItems.setPid(id);
-//            orderedItems.setQuantity(totalProductsOrdered.get(id));
-//            db.myDao().insertOrderedItems(orderedItems);
-//        }
-//
-////        // Insert User's Order to Database
-////        Orders order = new Orders();
-////        order.setUid(MyApplication.Instance().getSharedPreferenceConfig().readUserId());
-////        MyAppDatabase db = MyAppDatabase.Instance();
-////        long orderId = db.myDao().insertOrder(order);
-////
-////        // Insert Ordered Items to Database
-////        OrderedItems orderedItems = new OrderedItems();
-////        orderedItems.setOid((int) orderId);
-////        orderedItems.setType("purchase");
-////
-////        for(int id : totalProductsOrdered.keySet()){
-////            orderedItems.setPid(id);
-////            orderedItems.setQuantity(totalProductsOrdered.get(id));
-////            db.myDao().insertOrderedItems(orderedItems);
-////        }
-//
-//        Toast.makeText(getActivity(), "Order updated!", Toast.LENGTH_SHORT).show();
-//
-//    }
 
     private void deleteOrder(){
 
@@ -214,26 +172,13 @@ public class UserOrderEditBottomSheetDialog extends BottomSheetDialogFragment {
         clickedProduct.setLayoutParams(textParams);
         clickedPrice.setLayoutParams(textParams);
         clickedQuantity.setLayoutParams(textParams);
-//            quantityRow.setLayoutParams(rowParams);
-//                clickedQuantity.setLayoutParams(textParams);
-//                increaseQuantity.setLayoutParams(quantityParams);
-//                decreaseQuantity.setLayoutParams(quantityParams);
         clickedTotal.setLayoutParams(textParams);
 
         clickedProduct.setText(product);
         clickedPrice.setText(getPriceToString(price));
         clickedQuantity.setText(Integer.toString(count));
-//        clickedQuantity.setEnabled(false);
-//        increaseQuantity.setText("+");
-//        decreaseQuantity.setText("-");
         price = price * count;
         clickedTotal.setText(getPriceToString(price));
-//        clickedQuantity.addTextChangedListener();
-
-//        quantityRow.addView(clickedQuantity);
-//        quantityRow.addView(increaseQuantity);
-//        quantityRow.addView(decreaseQuantity);
-//        quantity.addView(quantityRow);
 
         orderTableRow.addView(clickedProduct);
         orderTableRow.addView(clickedPrice);

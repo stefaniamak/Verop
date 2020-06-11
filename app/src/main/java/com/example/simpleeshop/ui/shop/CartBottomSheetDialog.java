@@ -36,8 +36,6 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
     Button clear, confirm;
     double totalCost;
 
-    //TextView clickedProduct;
-
     TextView clickedTotal;
     
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -193,7 +191,6 @@ public class CartBottomSheetDialog extends BottomSheetDialogFragment {
         cartTableRow.addView(clickedTotal);
 
         cartTable.addView(cartTableRow);
-//        listView.setAdapter(cartListAdapter);
     }
 
     private String getPriceToString(double price){

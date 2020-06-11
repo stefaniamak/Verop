@@ -28,17 +28,13 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferenceConfig sharedPreferenceConfig;
     private AppBarConfiguration mAppBarConfiguration;
 
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         enterApp();
 
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
-
     }
-
 
     public void enterApp(){
         setContentView(R.layout.activity_main);
@@ -53,11 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 CartBottomSheetDialog cartBottomSheet = new CartBottomSheetDialog();
                 cartBottomSheet.show(getSupportFragmentManager(), "CartFragment Bottom Sheet");
 
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-////                        .setAction("Action", null).show();
             }
         });
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -74,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         MyAppDatabase db = MyAppDatabase.Instance();
 
         // Remove Admin menu item if not admin
-        MenuItem adminMenuItem = navigationView.getMenu().getItem(3);//findViewById(R.id.nav_administrator);
+        MenuItem adminMenuItem = navigationView.getMenu().getItem(3);
         if(adminMenuItem != null) {
             if(MyApplication.Instance().getSharedPreferenceConfig().readUserId() == 1){
                 adminMenuItem.setVisible(true);
@@ -82,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 adminMenuItem.setVisible(false);
             }
         }
-
     }
 
     @Override
@@ -91,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 
     public void logout() {
         sharedPreferenceConfig.writeLoginStatus(false);

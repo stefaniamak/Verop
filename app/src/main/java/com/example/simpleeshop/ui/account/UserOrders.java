@@ -103,7 +103,6 @@ public class UserOrders extends Fragment {
         editOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "Order id: " + orderId, Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).openOrderDetailsSheetDialog(that, orderId);
                 addItems(orderId);
             }
@@ -112,7 +111,6 @@ public class UserOrders extends Fragment {
         orderTableRow.addView(editOrder);
 
         ordersTable.addView(orderTableRow);
-//        listView.setAdapter(cartListAdapter);
     }
 
     private void addItems(int orderId){

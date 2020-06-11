@@ -40,16 +40,10 @@ public class ShopFragment extends Fragment implements UiRefresher.RefreshListene
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getActivity(), "Item Clicked", Toast.LENGTH_SHORT).show();
-//                Toast.makeText(parent.getContext(),
-//                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-//                        Toast.LENGTH_SHORT).show();
-                // TODO : Call method to have items be added at cart table
+                // Adds the item to the shopping cart
                 addItemToCart(position);
             }
         });
-
-//        listView.setOnItemClickListener(this);
 
         UiRefresher.Instance().addListener(this);
         return root;
@@ -90,7 +84,4 @@ public class ShopFragment extends Fragment implements UiRefresher.RefreshListene
         shopListAdapter = new ShopListAdapter(root.getContext(), R.layout.fragment_shop_item, productsArray);
         listView.setAdapter(shopListAdapter);
     }
-
-
-
 }

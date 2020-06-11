@@ -88,16 +88,8 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-//        clearBottomSheetMap();
-    }
 
-//    private void clearBottomSheetMap(){
-//        // Remove all table rows except the first one
-//        int childCount = orderTable.getChildCount();
-//        if (childCount > 1) {
-//            orderTable.removeViews(1, childCount - 1);
-//        }
-//    }
+    }
 
     private void initializeCartTable(){
         MyAppDatabase db = MyAppDatabase.Instance();
@@ -261,8 +253,6 @@ public class OrderListSheetDialog extends BottomSheetDialogFragment {
                 }
             }
         });
-        //  totalProductsOrdered.get(listItem).getQuantity()
-//        listView.setAdapter(cartListAdapter);
     }
 
     private String updateQuantity(int modifier, int listItem){
